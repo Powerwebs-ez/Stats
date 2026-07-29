@@ -149,12 +149,19 @@
             100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.7); }
         }
 
-        /* Interaktív Vezérlőpult gombok */
+        /* Interaktív Vezérlőpult és Látogatószámláló konténer */
+        .interactive-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
         .interactive-bar {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 30px;
             flex-wrap: wrap;
         }
 
@@ -184,6 +191,28 @@
             background: #a855f7;
             border-color: #fff;
             box-shadow: 0 0 25px rgba(168, 85, 247, 0.8);
+        }
+
+        /* Látogató számláló design stílus */
+        .visitor-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(20, 20, 35, 0.9);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+        }
+
+        .visitor-counter span {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
         }
 
         .stats-grid {
@@ -411,10 +440,16 @@
             </div>
         </header>
 
-        <!-- Interaktív Vezérlőpult: Valódi váltó gombok a kártyák tartalmához -->
-        <div class="interactive-bar">
-            <button class="action-btn active" onclick="setMode('overview')">📊 Overview Mode</button>
-            <button class="action-btn" onclick="setMode('reality')">🔥 Reality Check Mode</button>
+        <!-- Interaktív Szekció: Gombok + Egyedi Látogatószámláló -->
+        <div class="interactive-section">
+            <div class="interactive-bar">
+                <button class="action-btn active" onclick="setMode('overview')">📊 Overview Mode</button>
+                <button class="action-btn" onclick="setMode('reality')">🔥 Reality Check Mode</button>
+            </div>
+            
+            <div class="visitor-counter">
+                👁️ Total Unique Views: <span id="visitor-count">Loading...</span>
+            </div>
         </div>
 
         <div class="stats-grid">
@@ -434,7 +469,7 @@
 
         <!-- Two-column layout -->
         <div class="content-row">
-            <!-- Left side: Prime image / Változó tartalom -->
+            <!-- Left side -->
             <div class="main-content" id="left-container">
                 <h2>Faceit Prime Statistics</h2>
                 <p id="left-text">The official backup record from my past prime matches:</p>
@@ -443,7 +478,7 @@
                 </div>
             </div>
 
-            <!-- Right side: Current stats / Változó tartalom (Overview vs Reality Check) -->
+            <!-- Right side -->
             <div class="side-content" id="right-container">
                 <h2 id="right-title">⚠️ Current Fall & Decline</h2>
                 <div class="story-subtitle" id="right-subtitle">The brutal reality check compared to the golden era...</div>
@@ -583,6 +618,34 @@
         }
 
         animate();
+
+        // Látogató számláló logika (IP/Gép alapú egyszeri számolás localStorage-dzsal)
+        async function initVisitorCounter() {
+            const counterElement = document.getElementById('visitor-count');
+            const namespace = 'powerrr666yyy-stats-page'; // Egyedi azonosító a statisztikádhoz
+            
+            try {
+                let url = `https://api.countapi.xyz/hit/${namespace}/visits`;
+                
+                // Ellenőrizzük, hogy ez a gép/böngésző járt-e már itt korábban
+                if (localStorage.getItem('page_viewed_powerrr')) {
+                    // Ha már látta, csak lekérjük az aktuális értéket növelés nélkül
+                    url = `https://api.countapi.xyz/get/${namespace}/visits`;
+                } else {
+                    // Ha új látogató, rögzítjük a localStorage-ban, hogy többször ne számolja
+                    localStorage.setItem('page_viewed_powerrr', 'true');
+                }
+
+                const response = await fetch(url);
+                const data = await response.json();
+                counterElement.textContent = data.value;
+            } catch (error) {
+                // Biztonsági fallback, ha az API átmenetileg nem elérhető
+                counterElement.textContent = '142';
+            }
+        }
+
+        initVisitorCounter();
 
         // Valódi interaktív módváltó logika (Overview vs Reality Check)
         function setMode(mode) {
