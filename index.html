@@ -14,6 +14,7 @@
             --accent-cyan: #06b6d4;
             --prime-gold: #fbbf24;
             --faceit-orange: #ff5500;
+            --danger-red: #ef4444;
         }
 
         * {
@@ -91,7 +92,6 @@
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
         }
 
-        /* Faceit kizárólagos kiemelés */
         .faceit-badge {
             display: inline-flex;
             align-items: center;
@@ -152,7 +152,7 @@
             color: #fff;
         }
 
-        /* Kétoszlopos elrendezés előkészítése a kép + jövőbeli dolgok számára */
+        /* Kétoszlopos elrendezés */
         .content-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -192,7 +192,6 @@
             margin-bottom: 20px;
         }
 
-        /* Kisebb méretű kép doboz */
         .screenshot-container {
             width: 100%;
             border-radius: 14px;
@@ -213,7 +212,7 @@
             display: block;
         }
 
-        /* Ide jönnek majd a jövőbeli elemek a kép mellé */
+        /* Jobb oldalsó doboz a jelenlegi statoknak */
         .side-content {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -221,17 +220,65 @@
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            height: 100%;
         }
 
         .side-content h2 {
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.4rem;
             letter-spacing: 1px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 10px;
             color: var(--accent-cyan);
+        }
+
+        .current-stats-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mini-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mini-card .label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mini-card .data-box {
+            text-align: right;
+        }
+
+        .mini-card .current-val {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .mini-card .diff {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .diff.worse {
+            color: var(--danger-red);
+        }
+
+        .diff.better {
+            color: #10b981;
         }
     </style>
 </head>
@@ -259,23 +306,51 @@
             </div>
             <div class="card">
                 <h3>Faceit Elo</h3>
-                <div class="value">1455</div>
+                <div class="value">1545</div>
             </div>
         </div>
 
-        <!-- Kétoszlopos elrendezés (balra a kisebb kép, jobbra a hely a következő elemeknek) -->
+        <!-- Kétoszlopos elrendezés -->
         <div class="content-row">
+            <!-- Bal oldal: Prime kép -->
             <div class="main-content">
                 <h2>Faceit Prime Statisztika</h2>
-                <p>A hivatalos mentés a korábbi meccseimből:</p>
+                <p>A hivatalos mentés a korábbi prime meccseimből:</p>
                 <div class="screenshot-container">
-                    <img src="https://raw.githubusercontent.com/lokey3872-bit/Stats/main/statsss.png" alt="Faceit Statisztikák">
+                    <img src="https://raw.githubusercontent.com/lokey3872-bit/Stats/main/statsss.png" alt="Faceit Prime Statisztikák">
                 </div>
             </div>
 
+            <!-- Jobb oldal: Jelenlegi statisztikák és romlási %-ok -->
             <div class="side-content">
-                <h2>További Részletek</h2>
-                <p>Itt lesz helye a következő kiegészítéseknek, statisztikáknak vagy extráknak, amiket szeretnél majd ide csináltatni.</p>
+                <h2>Jelenlegi Statisztikák</h2>
+                <p>A mostani adatok összehasonlítva a prime időszakkal:</p>
+                
+                <div class="current-stats-grid">
+                    <div class="mini-card">
+                        <div class="label">Jelenlegi K/D</div>
+                        <div class="data-box">
+                            <div class="current-val">1.05</div>
+                            <div class="diff worse">-26.6% romlás</div>
+                        </div>
+                    </div>
+
+                    <div class="mini-card">
+                        <div class="label">Jelenlegi Winrate</div>
+                        <div class="data-box">
+                            <div class="current-val">54%</div>
+                            <div class="diff worse">0% (Változatlan)</div>
+                        </div>
+                    </div>
+
+                    <div class="mini-card">
+                        <div class="label">Jelenlegi Elo</div>
+                        <div class="data-box">
+                            <div class="current-val">1543</div>
+                            <div class="diff better">+90 Elo (Jelenlegi)</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
