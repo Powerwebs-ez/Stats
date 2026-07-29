@@ -20,6 +20,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: default;
         }
 
         body {
@@ -32,33 +33,38 @@
             padding: 40px 20px;
         }
 
-        /* Háttér mozgó / lebegő neon gömbök effekt */
+        /* Követő egér fénycsóva (Cursor Glow) */
+        #cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.18) 0%, rgba(236, 72, 153, 0.08) 40%, transparent 70%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        /* Háttér interaktív fényfoltok */
         .bg-glow {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(236, 72, 153, 0.15));
-            filter: blur(100px);
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(236, 72, 153, 0.12));
+            filter: blur(120px);
             border-radius: 50%;
             z-index: -1;
-            animation: floatGlow 8s ease-in-out infinite alternate;
-        }
-
-        .bg-glow.two {
-            top: 60%;
-            right: 10%;
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(6, 182, 212, 0.15));
-            animation-duration: 12s;
-        }
-
-        @keyframes floatGlow {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-50px) scale(1.1); }
+            pointer-events: none;
+            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .container {
             max-width: 1000px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
         header {
@@ -77,7 +83,7 @@
             margin-bottom: 20px;
         }
 
-        /* 🌟 VILLOGÓ / PULZÁLÓ PRIME BADGE */
+        /* Villogó / Pulzáló Prime Badge */
         .prime-badge {
             display: inline-flex;
             align-items: center;
@@ -92,7 +98,6 @@
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            /* Itt a villogó / pulzáló animáció */
             animation: pulseGlow 1.8s infinite alternate;
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
         }
@@ -116,7 +121,7 @@
             margin-bottom: 30px;
         }
 
-        /* Üveghatású (Glassmorphism) kártyák lebegő effekttel */
+        /* Üveghatású kártyák */
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -126,22 +131,13 @@
             padding: 30px;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: floatCard 6s ease-in-out infinite;
-        }
-
-        .card:nth-child(2) { animation-delay: 1.5s; }
-        .card:nth-child(3) { animation-delay: 3s; }
-
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, box-shadow 0.3s;
         }
 
         .card:hover {
-            transform: translateY(-15px) scale(1.02);
+            transform: translateY(-10px) scale(1.02);
             border-color: var(--accent-cyan);
-            box-shadow: 0 15px 30px rgba(6, 182, 212, 0.2);
+            box-shadow: 0 15px 30px rgba(6, 182, 212, 0.25);
         }
 
         .card h3 {
@@ -188,9 +184,11 @@
 </head>
 <body>
 
-    <!-- Háttér animált neon fényfoltok -->
-    <div class="bg-glow"></div>
-    <div class="bg-glow two"></div>
+    <!-- Egér fénycsóva elem -->
+    <div id="cursor-glow"></div>
+
+    <!-- Háttér interaktív fényfolt -->
+    <div class="bg-glow" id="bgGlow"></div>
 
     <div class="container">
         <header>
@@ -217,9 +215,29 @@
 
         <div class="main-content">
             <h2>Részletes áttekintés</h2>
-            <p>Itt találhatók a prime korszakom legfontosabb mutatói és teljesítményadatai, prémium gamer / cyberpunk stílusban tálalva.</p>
+            <p>Itt találhatók a prime korszakom legfontosabb mutatói és teljesítményadatai. Most már az egérmutatót is egy interaktív neon fénycsóva kíséri!</p>
         </div>
     </div>
+
+    <script>
+        // Egérkövető és fénycsóva szkript
+        const cursorGlow = document.getElementById('cursor-glow');
+        const bgGlow = document.getElementById('bgGlow');
+
+        window.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+
+            // A kurzor fénycsóva pontos mozgatása
+            cursorGlow.style.left = `${x}px`;
+            cursorGlow.style.top = `${y}px`;
+
+            // A háttérfény finom, kicsit lomhább követése a mélységérzetért
+            const bgX = (x / window.innerWidth) * 100;
+            const bgY = (y / window.innerHeight) * 100;
+            bgGlow.style.transform = `translate(${bgX - 50}vw, ${bgY - 50}vh)`;
+        });
+    </script>
 
 </body>
 </html>
