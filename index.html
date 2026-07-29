@@ -149,7 +149,7 @@
             100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.7); }
         }
 
-        /* Interaktív Vezérlőpult (Gombok) */
+        /* Interaktív Vezérlőpult gombok */
         .interactive-bar {
             display: flex;
             justify-content: center;
@@ -293,6 +293,7 @@
             box-shadow: 0 10px 30px rgba(239, 68, 68, 0.15);
             position: relative;
             overflow: hidden;
+            transition: all 0.4s ease;
         }
 
         .side-content::before {
@@ -390,18 +391,6 @@
         .diff.better {
             color: var(--success-green);
         }
-
-        /* Interaktív üzenet doboz animációhoz */
-        .interactive-toast {
-            margin-top: 20px;
-            padding: 12px 15px;
-            background: rgba(168, 85, 247, 0.1);
-            border-left: 4px solid #a855f7;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            transition: all 0.3s ease;
-        }
     </style>
 </head>
 <body>
@@ -422,11 +411,10 @@
             </div>
         </header>
 
-        <!-- Interaktív Gombok -->
+        <!-- Interaktív Vezérlőpult: Valódi váltó gombok a kártyák tartalmához -->
         <div class="interactive-bar">
-            <button class="action-btn active" onclick="switchView('overview')">📊 Overview</button>
-            <button class="action-btn" onclick="switchView('roast')">🔥 Reality Check</button>
-            <button class="action-btn" onclick="triggerGlitch()">⚡ Glitch Effect</button>
+            <button class="action-btn active" onclick="setMode('overview')">📊 Overview Mode</button>
+            <button class="action-btn" onclick="setMode('reality')">🔥 Reality Check Mode</button>
         </div>
 
         <div class="stats-grid">
@@ -446,21 +434,21 @@
 
         <!-- Two-column layout -->
         <div class="content-row">
-            <!-- Left side: Prime image -->
-            <div class="main-content" id="left-panel">
+            <!-- Left side: Prime image / Változó tartalom -->
+            <div class="main-content" id="left-container">
                 <h2>Faceit Prime Statistics</h2>
-                <p id="left-desc">The official backup record from my past prime matches:</p>
-                <div class="screenshot-container">
+                <p id="left-text">The official backup record from my past prime matches:</p>
+                <div class="screenshot-container" id="left-media">
                     <img src="https://raw.githubusercontent.com/lokey3872-bit/Stats/main/statsss.png" alt="Faceit Prime Statistics">
                 </div>
             </div>
 
-            <!-- Right side: Current stats story-driven decline design -->
-            <div class="side-content">
-                <h2>⚠️ Current Fall & Decline</h2>
-                <div class="story-subtitle" id="story-sub">The brutal reality check compared to the golden era...</div>
+            <!-- Right side: Current stats / Változó tartalom (Overview vs Reality Check) -->
+            <div class="side-content" id="right-container">
+                <h2 id="right-title">⚠️ Current Fall & Decline</h2>
+                <div class="story-subtitle" id="right-subtitle">The brutal reality check compared to the golden era...</div>
                 
-                <div class="current-stats-grid">
+                <div class="current-stats-grid" id="stats-grid-content">
                     <div class="mini-card">
                         <div class="label">Current K/D</div>
                         <div class="data-box">
@@ -485,7 +473,6 @@
                         </div>
                     </div>
 
-                    <!-- Kiszámolt Headshot% romlás (87%-ról 56.4%-ra -> -35.2%) -->
                     <div class="mini-card">
                         <div class="label">Current Headshot %</div>
                         <div class="data-box">
@@ -494,7 +481,6 @@
                         </div>
                     </div>
 
-                    <!-- Kiszámolt ADR romlás (109-ről 78.23-ra -> -28.2%) -->
                     <div class="mini-card">
                         <div class="label">Current ADR</div>
                         <div class="data-box">
@@ -502,10 +488,6 @@
                             <div class="diff worse">-28.2% Decline</div>
                         </div>
                     </div>
-                </div>
-
-                <div class="interactive-toast" id="interactive-msg">
-                    💡 Tip: Click the buttons above to interact with the performance tracker!
                 </div>
             </div>
         </div>
@@ -602,39 +584,97 @@
 
         animate();
 
-        // Gomb interaktivitás logika
-        function switchView(mode) {
+        // Valódi interaktív módváltó logika (Overview vs Reality Check)
+        function setMode(mode) {
             const buttons = document.querySelectorAll('.action-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            const msgBox = document.getElementById('interactive-msg');
-            const subTitle = document.getElementById('story-sub');
+            const rightTitle = document.getElementById('right-title');
+            const rightSubtitle = document.getElementById('right-subtitle');
+            const statsGrid = document.getElementById('stats-grid-content');
 
             if (mode === 'overview') {
-                subTitle.textContent = "The brutal reality check compared to the golden era...";
-                msgBox.textContent = "📊 Overview mode active: Showing historical peak vs current slump.";
-            } else if (mode === 'roast') {
-                subTitle.textContent = "⚠️ EMERGENCY: Aim has completely left the chat!";
-                msgBox.textContent = "🔥 Reality Check: Over 35% drop in headshots. Time for an aim training map!";
+                rightTitle.innerHTML = "⚠️ Current Fall & Decline";
+                rightSubtitle.textContent = "The brutal reality check compared to the golden era...";
+                statsGrid.innerHTML = `
+                    <div class="mini-card">
+                        <div class="label">Current K/D</div>
+                        <div class="data-box">
+                            <div class="current-val">1.05</div>
+                            <div class="diff worse">-26.6% Decline</div>
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="label">Current Winrate</div>
+                        <div class="data-box">
+                            <div class="current-val">54%</div>
+                            <div class="diff worse">0% (Stagnant)</div>
+                        </div>
+                    </div>
+                    <div class="mini-card success-card">
+                        <div class="label">Current Elo</div>
+                        <div class="data-box">
+                            <div class="current-val">1543</div>
+                            <div class="diff better">+90 Elo (Current)</div>
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="label">Current Headshot %</div>
+                        <div class="data-box">
+                            <div class="current-val">56.4%</div>
+                            <div class="diff worse">-35.2% Decline</div>
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="label">Current ADR</div>
+                        <div class="data-box">
+                            <div class="current-val">78.23</div>
+                            <div class="diff worse">-28.2% Decline</div>
+                        </div>
+                    </div>
+                `;
+            } else if (mode === 'reality') {
+                rightTitle.innerHTML = "🚨 Emergency Roast Mode";
+                rightSubtitle.textContent = "Absolute disaster zone detected in recent matches!";
+                statsGrid.innerHTML = `
+                    <div class="mini-card">
+                        <div class="label">Clutch Success</div>
+                        <div class="data-box">
+                            <div class="current-val">2.5%</div>
+                            <div class="diff worse">Always 1v5</div>
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="label">Mental Stability</div>
+                        <div class="data-box">
+                            <div class="current-val">CRITICAL</div>
+                            <div class="diff worse">Ready to Ragequit</div>
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="label">Excuses Found</div>
+                        <div class="data-box">
+                            <div class="current-val">99+</div>
+                            <div class="diff worse">"Bad teammates"</div>
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="label">Aim Quality</div>
+                        <div class="data-box">
+                            <div class="current-val">Stormtrooper</div>
+                            <div class="diff worse">Missed everything</div>
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="label">Carried Status</div>
+                        <div class="data-box">
+                            <div class="current-val">100%</div>
+                            <div class="diff worse">Heavy backpack</div>
+                        </div>
+                    </div>
+                `;
             }
-        }
-
-        function triggerGlitch() {
-            const buttons = document.querySelectorAll('.action-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            const panel = document.getElementById('left-panel');
-            panel.style.transform = "scale(0.98) skew(2deg)";
-            panel.style.filter = "hue-rotate(90deg)";
-            
-            document.getElementById('interactive-msg').textContent = "⚡ SYSTEM ERROR: Prime statistics corrupted by bad matches!";
-
-            setTimeout(() => {
-                panel.style.transform = "none";
-                panel.style.filter = "none";
-            }, 400);
         }
     </script>
 
