@@ -15,7 +15,9 @@
             --prime-gold: #fbbf24;
             --faceit-orange: #ff5500;
             --danger-red: #ef4444;
+            --success-green: #10b981;
             --decline-dark: rgba(239, 68, 68, 0.12);
+            --success-dark: rgba(16, 185, 129, 0.12);
         }
 
         * {
@@ -212,7 +214,6 @@
             display: block;
         }
 
-        /* Vészjósló, "romló" hangulatú jobb oldalsó doboz design */
         .side-content {
             background: linear-gradient(135deg, rgba(20, 20, 35, 0.85) 0%, rgba(40, 15, 20, 0.85) 100%);
             backdrop-filter: blur(12px);
@@ -224,7 +225,6 @@
             overflow: hidden;
         }
 
-        /* Vörös, veszélyes fényhatás a sarokban */
         .side-content::before {
             content: '';
             position: absolute;
@@ -279,6 +279,16 @@
             border-color: rgba(239, 68, 68, 0.5);
         }
 
+        /* Speciális zöld kártya a pozitív Elo-hoz */
+        .mini-card.success-card {
+            background: var(--success-dark);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .mini-card.success-card:hover {
+            border-color: rgba(16, 185, 129, 0.6);
+        }
+
         .mini-card .label {
             font-family: 'Rajdhani', sans-serif;
             font-size: 0.95rem;
@@ -309,7 +319,7 @@
         }
 
         .diff.better {
-            color: #10b981;
+            color: var(--success-green);
         }
     </style>
 </head>
@@ -374,7 +384,8 @@
                         </div>
                     </div>
 
-                    <div class="mini-card">
+                    <!-- Zöld, kiemelt Elo kártya -->
+                    <div class="mini-card success-card">
                         <div class="label">Current Elo</div>
                         <div class="data-box">
                             <div class="current-val">1543</div>
@@ -386,7 +397,7 @@
                         <div class="label">Current Headshot %</div>
                         <div class="data-box">
                             <div class="current-val">56.4%</div>
-                            <div class="diff better">Fresh Data</div>
+                            <div class="diff worse">+4.4% Higher? (Or drop/change)</div>
                         </div>
                     </div>
 
@@ -394,7 +405,7 @@
                         <div class="label">Current ADR</div>
                         <div class="data-box">
                             <div class="current-val">78.23</div>
-                            <div class="diff better">Fresh Data</div>
+                            <div class="diff worse">Evaluated Drop</div>
                         </div>
                     </div>
                 </div>
