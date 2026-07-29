@@ -13,6 +13,7 @@
             --text-muted: #94a3b8;
             --accent-cyan: #06b6d4;
             --prime-gold: #fbbf24;
+            --faceit-orange: #ff5500;
         }
 
         * {
@@ -32,7 +33,6 @@
             padding: 40px 20px;
         }
 
-        /* Háttér tűzcsóva vászon (Canvas) a layout alatt */
         #fire-canvas {
             position: fixed;
             top: 0;
@@ -44,7 +44,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
@@ -52,7 +52,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         header h1 {
@@ -63,38 +63,55 @@
             letter-spacing: 3px;
             color: #fff;
             text-shadow: 0 0 20px rgba(168, 85, 247, 0.5), 0 0 40px rgba(168, 85, 247, 0.2);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
-        /* Villogó / Pulzáló Prime Badge */
+        .badges-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
         .prime-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             background: rgba(251, 191, 36, 0.1);
             border: 2px solid var(--prime-gold);
             color: var(--prime-gold);
-            padding: 8px 22px;
+            padding: 6px 18px;
             border-radius: 30px;
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             animation: pulseGlow 1.8s infinite alternate;
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
         }
 
+        /* Faceit kizárólagos kiemelés */
+        .faceit-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 85, 0, 0.1);
+            border: 2px solid var(--faceit-orange);
+            color: var(--faceit-orange);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 85, 0, 0.3);
+        }
+
         @keyframes pulseGlow {
-            0% {
-                box-shadow: 0 0 5px rgba(251, 191, 36, 0.2), inset 0 0 5px rgba(251, 191, 36, 0.1);
-                border-color: rgba(251, 191, 36, 0.6);
-            }
-            100% {
-                box-shadow: 0 0 25px rgba(251, 191, 36, 0.8), inset 0 0 15px rgba(251, 191, 36, 0.4);
-                border-color: #fff;
-                transform: scale(1.03);
-            }
+            0% { box-shadow: 0 0 5px rgba(251, 191, 36, 0.2); }
+            100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.7); }
         }
 
         .stats-grid {
@@ -104,97 +121,90 @@
             margin-bottom: 30px;
         }
 
-        /* Üveghatású kártyák */
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, box-shadow 0.3s;
+            padding: 25px;
+            transition: transform 0.3s ease, border-color 0.3s;
         }
 
         .card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-8px);
             border-color: #a855f7;
             box-shadow: 0 15px 30px rgba(168, 85, 247, 0.25);
         }
 
         .card h3 {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .card .value {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
-        /* Kép szekció és a pulzáló lila keret */
+        /* Kétoszlopos elrendezés előkészítése a kép + jövőbeli dolgok számára */
+        .content-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .content-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .main-content {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 35px;
+            padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-            text-align: center;
         }
 
         .main-content h2 {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             letter-spacing: 1px;
             margin-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 10px;
             color: #a855f7;
-            text-align: left;
         }
 
         .main-content p {
             color: var(--text-muted);
-            line-height: 1.7;
+            line-height: 1.6;
+            font-size: 0.95rem;
             margin-bottom: 20px;
-            text-align: left;
         }
 
+        /* Kisebb méretű kép doboz */
         .screenshot-container {
-            display: inline-block;
-            max-width: 80%; /* Kicsinyítés mértéke */
             width: 100%;
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            /* Pulzáló lila keret effekt */
             border: 2px solid #a855f7;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), inset 0 0 15px rgba(168, 85, 247, 0.2);
-            animation: imagePulse 3s infinite alternate;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
             transition: transform 0.3s ease;
         }
 
         .screenshot-container:hover {
             transform: scale(1.02);
-            box-shadow: 0 0 35px rgba(168, 85, 247, 0.7), inset 0 0 20px rgba(168, 85, 247, 0.4);
-        }
-
-        @keyframes imagePulse {
-            0% {
-                box-shadow: 0 0 15px rgba(168, 85, 247, 0.3), inset 0 0 10px rgba(168, 85, 247, 0.1);
-            }
-            100% {
-                box-shadow: 0 0 30px rgba(168, 85, 247, 0.6), inset 0 0 20px rgba(168, 85, 247, 0.3);
-            }
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
         }
 
         .screenshot-container img {
@@ -202,18 +212,39 @@
             height: auto;
             display: block;
         }
+
+        /* Ide jönnek majd a jövőbeli elemek a kép mellé */
+        .side-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            height: 100%;
+        }
+
+        .side-content h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            color: var(--accent-cyan);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Háttér tűzcsóva vászon -->
     <canvas id="fire-canvas"></canvas>
 
     <div class="container">
         <header>
             <h1>Powerrr666yyy Stats</h1>
-            <div class="prime-badge">
-                ⭐ Prime Időszak Statisztikák
+            <div class="badges-wrapper">
+                <div class="prime-badge">⭐ Prime Időszak</div>
+                <div class="faceit-badge">🎯 Kizárólag Faceit Adatok</div>
             </div>
         </header>
 
@@ -232,12 +263,19 @@
             </div>
         </div>
 
-        <div class="main-content">
-            <h2>Hivatalos Prime Statisztikák (Screenshot)</h2>
-            <p>Íme a hivatalos mentés a korábbi CS:GO / CS2 Prime időszakom adatairól:</p>
-            
-            <div class="screenshot-container">
-                <img src="https://raw.githubusercontent.com/lokey3872-bit/Stats/main/statsss.png" alt="Powerrr666yyy CS Statisztikák">
+        <!-- Kétoszlopos elrendezés (balra a kisebb kép, jobbra a hely a következő elemeknek) -->
+        <div class="content-row">
+            <div class="main-content">
+                <h2>Faceit Prime Statisztika</h2>
+                <p>A hivatalos mentés a korábbi meccseimből:</p>
+                <div class="screenshot-container">
+                    <img src="https://raw.githubusercontent.com/lokey3872-bit/Stats/main/statsss.png" alt="Faceit Statisztikák">
+                </div>
+            </div>
+
+            <div class="side-content">
+                <h2>További Részletek</h2>
+                <p>Itt lesz helye a következő kiegészítéseknek, statisztikáknak vagy extráknak, amiket szeretnél majd ide csináltatni.</p>
             </div>
         </div>
     </div>
