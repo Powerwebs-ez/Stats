@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saját Statisztikáim</title>
+    <title>Powerrr666yyy Stats</title>
     <!-- Google Fonts betűtípus -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -14,6 +14,7 @@
             --text-muted: #94a3b8;
             --accent-color: #38bdf8;
             --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            --prime-color: #f59e0b; /* Arany/narancs szín a prime-hoz */
         }
 
         * {
@@ -47,12 +48,24 @@
             background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        header p {
-            color: var(--text-muted);
-            font-size: 1rem;
+        /* Prime időszak kiemelés stílusa */
+        .prime-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: var(--prime-color);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.1);
         }
 
         .stats-grid {
@@ -114,8 +127,10 @@
 
     <div class="container">
         <header>
-            <h1>Személyes Statisztikáim</h1>
-            <p>Ahol a teljesítményem és az adataim találkoznak</p>
+            <h1>Powerrr666yyy Stats</h1>
+            <div class="prime-badge">
+                ⭐ Prime Időszak Statisztikák
+            </div>
         </header>
 
         <div class="stats-grid">
@@ -135,7 +150,7 @@
 
         <div class="main-content">
             <h2>Részletes áttekintés</h2>
-            <p>Itt majd elhelyezheted a hosszabb leírásokat, grafikonokat vagy további részletes mutatókat a statisztikáiddal kapcsolatban.</p>
+            <p>Itt találhatók a prime korszakom legfontosabb mutatói és teljesítményadatai.</p>
         </div>
     </div>
 
