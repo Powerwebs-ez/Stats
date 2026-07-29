@@ -32,7 +32,7 @@
             padding: 40px 20px;
         }
 
-        /* Tűz vászon (Canvas) a legeslegmélyebb háttérben, a layout alatt */
+        /* Háttér tűzcsóva vászon (Canvas) a layout alatt */
         #fire-canvas {
             position: fixed;
             top: 0;
@@ -47,7 +47,7 @@
             max-width: 1000px;
             margin: 0 auto;
             position: relative;
-            z-index: 2; /* Biztosítja, hogy minden felirat/layout a lila tűzcsóva felett legyen */
+            z-index: 2;
         }
 
         header {
@@ -140,6 +140,7 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
+        /* Kép szekció stílusa */
         .main-content {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -147,6 +148,7 @@
             border-radius: 20px;
             padding: 35px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
         }
 
         .main-content h2 {
@@ -159,15 +161,30 @@
             color: #a855f7;
         }
 
-        .main-content p {
-            color: var(--text-muted);
-            line-height: 1.7;
+        .screenshot-container {
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .screenshot-container:hover {
+            border-color: #a855f7;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+        }
+
+        .screenshot-container img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <!-- Háttér tűzcsóva vászon (az egérmutatót követő lila tűzhatás a layout alatt) -->
+    <!-- Háttér tűzcsóva vászon -->
     <canvas id="fire-canvas"></canvas>
 
     <div class="container">
@@ -180,22 +197,27 @@
 
         <div class="stats-grid">
             <div class="card">
-                <h3>Első Stat</h3>
-                <div class="value">124</div>
+                <h3>K/D Ratio</h3>
+                <div class="value">1.43</div>
             </div>
             <div class="card">
-                <h3>Második Stat</h3>
-                <div class="value">85%</div>
+                <h3>Winrate</h3>
+                <div class="value">54%</div>
             </div>
             <div class="card">
-                <h3>Harmadik Stat</h3>
-                <div class="value">12 nap</div>
+                <h3>Faceit Elo</h3>
+                <div class="value">1455</div>
             </div>
         </div>
 
         <div class="main-content">
-            <h2>Részletes áttekintés</h2>
-            <p>Itt találhatók a prime korszakom legfontosabb mutatói és teljesítményadatai. A háttérben most már kizárólag a layout alatt fut egy interaktív, lila tűzcsóva effekt, ami követi az egeret!</p>
+            <h2>Hivatalos Prime Statisztikák (Screenshot)</h2>
+            <p>Íme a hivatalos mentés a korábbi CS:GO / CS2 Prime időszakom adatairól:</p>
+            
+            <div class="screenshot-container">
+                <!-- Itt húzza be a GitHub-ra feltöltött képedet -->
+                <img src="https://raw.githubusercontent.com/lokey3872-bit/Stats/main/statsss.png" alt="Powerrr666yyy CS Statisztikák">
+            </div>
         </div>
     </div>
 
@@ -223,7 +245,6 @@
             mouse.targetY = e.clientY;
         });
 
-        // Tűz részecskék tömbje
         const particles = [];
         const particleCount = 70;
 
@@ -257,11 +278,10 @@
                 ctx.save();
                 ctx.globalCompositeOperation = 'screen';
                 
-                // Lila tűz színátmenetek (lila, magenta, sötétkék mag)
                 const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-                gradient.addColorStop(0, `rgba(236, 72, 153, ${this.life})`); // élénk magenta
-                gradient.addColorStop(0.4, `rgba(168, 85, 247, ${this.life * 0.7})`); // lila
-                gradient.addColorStop(1, `rgba(88, 28, 135, 0)`); // sötétlila áttetsző
+                gradient.addColorStop(0, `rgba(236, 72, 153, ${this.life})`);
+                gradient.addColorStop(0.4, `rgba(168, 85, 247, ${this.life * 0.7})`);
+                gradient.addColorStop(1, `rgba(88, 28, 135, 0)`);
 
                 ctx.fillStyle = gradient;
                 ctx.beginPath();
@@ -276,7 +296,6 @@
         }
 
         function animate() {
-            // Finoman követi az egeret a pozíció
             mouse.x += (mouse.targetX - mouse.x) * 0.1;
             mouse.y += (mouse.targetY - mouse.y) * 0.1;
 
