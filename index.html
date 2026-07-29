@@ -8,11 +8,10 @@
     <style>
         :root {
             --bg-color: #050508;
-            --card-bg: rgba(20, 20, 35, 0.7);
+            --card-bg: rgba(20, 20, 35, 0.75);
             --text-color: #f1f5f9;
             --text-muted: #94a3b8;
             --accent-cyan: #06b6d4;
-            --accent-pink: #ec4899;
             --prime-gold: #fbbf24;
         }
 
@@ -33,38 +32,22 @@
             padding: 40px 20px;
         }
 
-        /* Követő egér fénycsóva (Cursor Glow) */
-        #cursor-glow {
+        /* Tűz vászon (Canvas) a legeslegmélyebb háttérben, a layout alatt */
+        #fire-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.18) 0%, rgba(236, 72, 153, 0.08) 40%, transparent 70%);
-            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
-            z-index: 9999;
-            transition: width 0.3s, height 0.3s;
-        }
-
-        /* Háttér interaktív fényfoltok */
-        .bg-glow {
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(236, 72, 153, 0.12));
-            filter: blur(120px);
-            border-radius: 50%;
-            z-index: -1;
-            pointer-events: none;
-            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 0;
         }
 
         .container {
             max-width: 1000px;
             margin: 0 auto;
             position: relative;
-            z-index: 2;
+            z-index: 2; /* Biztosítja, hogy minden felirat/layout a lila tűzcsóva felett legyen */
         }
 
         header {
@@ -79,7 +62,7 @@
             text-transform: uppercase;
             letter-spacing: 3px;
             color: #fff;
-            text-shadow: 0 0 20px rgba(6, 182, 212, 0.5), 0 0 40px rgba(6, 182, 212, 0.2);
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.5), 0 0 40px rgba(168, 85, 247, 0.2);
             margin-bottom: 20px;
         }
 
@@ -136,8 +119,8 @@
 
         .card:hover {
             transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 15px 30px rgba(6, 182, 212, 0.25);
+            border-color: #a855f7;
+            box-shadow: 0 15px 30px rgba(168, 85, 247, 0.25);
         }
 
         .card h3 {
@@ -173,7 +156,7 @@
             margin-bottom: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 10px;
-            color: var(--accent-cyan);
+            color: #a855f7;
         }
 
         .main-content p {
@@ -184,11 +167,8 @@
 </head>
 <body>
 
-    <!-- Egér fénycsóva elem -->
-    <div id="cursor-glow"></div>
-
-    <!-- Háttér interaktív fényfolt -->
-    <div class="bg-glow" id="bgGlow"></div>
+    <!-- Háttér tűzcsóva vászon (az egérmutatót követő lila tűzhatás a layout alatt) -->
+    <canvas id="fire-canvas"></canvas>
 
     <div class="container">
         <header>
@@ -215,28 +195,102 @@
 
         <div class="main-content">
             <h2>Részletes áttekintés</h2>
-            <p>Itt találhatók a prime korszakom legfontosabb mutatói és teljesítményadatai. Most már az egérmutatót is egy interaktív neon fénycsóva kíséri!</p>
+            <p>Itt találhatók a prime korszakom legfontosabb mutatói és teljesítményadatai. A háttérben most már kizárólag a layout alatt fut egy interaktív, lila tűzcsóva effekt, ami követi az egeret!</p>
         </div>
     </div>
 
     <script>
-        // Egérkövető és fénycsóva szkript
-        const cursorGlow = document.getElementById('cursor-glow');
-        const bgGlow = document.getElementById('bgGlow');
+        const canvas = document.getElementById('fire-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const mouse = {
+            x: width / 2,
+            y: height / 2,
+            targetX: width / 2,
+            targetY: height / 2
+        };
 
         window.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-
-            // A kurzor fénycsóva pontos mozgatása
-            cursorGlow.style.left = `${x}px`;
-            cursorGlow.style.top = `${y}px`;
-
-            // A háttérfény finom, kicsit lomhább követése a mélységérzetért
-            const bgX = (x / window.innerWidth) * 100;
-            const bgY = (y / window.innerHeight) * 100;
-            bgGlow.style.transform = `translate(${bgX - 50}vw, ${bgY - 50}vh)`;
+            mouse.targetX = e.clientX;
+            mouse.targetY = e.clientY;
         });
+
+        // Tűz részecskék tömbje
+        const particles = [];
+        const particleCount = 70;
+
+        class FireParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = mouse.x + (Math.random() - 0.5) * 40;
+                this.y = mouse.y + (Math.random() - 0.5) * 40;
+                this.size = Math.random() * 35 + 10;
+                this.speedY = -Math.random() * 2.5 - 1;
+                this.speedX = (Math.random() - 0.5) * 1.5;
+                this.life = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+            }
+
+            update() {
+                this.x += this.speedX + (mouse.x - this.x) * 0.05;
+                this.y += this.speedY;
+                this.size *= 0.96;
+                this.life -= this.decay;
+
+                if (this.life <= 0 || this.size <= 1) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalCompositeOperation = 'screen';
+                
+                // Lila tűz színátmenetek (lila, magenta, sötétkék mag)
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+                gradient.addColorStop(0, `rgba(236, 72, 153, ${this.life})`); // élénk magenta
+                gradient.addColorStop(0.4, `rgba(168, 85, 247, ${this.life * 0.7})`); // lila
+                gradient.addColorStop(1, `rgba(88, 28, 135, 0)`); // sötétlila áttetsző
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new FireParticle());
+        }
+
+        function animate() {
+            // Finoman követi az egeret a pozíció
+            mouse.x += (mouse.targetX - mouse.x) * 0.1;
+            mouse.y += (mouse.targetY - mouse.y) * 0.1;
+
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     </script>
 
 </body>
