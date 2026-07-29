@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +15,7 @@
             --prime-gold: #fbbf24;
             --faceit-orange: #ff5500;
             --danger-red: #ef4444;
+            --decline-dark: rgba(239, 68, 68, 0.12);
         }
 
         * {
@@ -152,7 +153,6 @@
             color: #fff;
         }
 
-        /* Kétoszlopos elrendezés */
         .content-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -212,24 +212,49 @@
             display: block;
         }
 
-        /* Jobb oldalsó doboz a jelenlegi statoknak */
+        /* Vészjósló, "romló" hangulatú jobb oldalsó doboz design */
         .side-content {
-            background: var(--card-bg);
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.85) 0%, rgba(40, 15, 20, 0.85) 100%);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Vörös, veszélyes fényhatás a sarokban */
+        .side-content::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(239, 68, 68, 0.15);
+            filter: blur(40px);
+            pointer-events: none;
         }
 
         .side-content h2 {
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.4rem;
             letter-spacing: 1px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(239, 68, 68, 0.2);
             padding-bottom: 10px;
-            color: var(--accent-cyan);
+            color: var(--danger-red);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .story-subtitle {
+            font-size: 0.85rem;
+            color: #fda4af;
+            margin-bottom: 20px;
+            font-style: italic;
         }
 
         .current-stats-grid {
@@ -239,13 +264,19 @@
         }
 
         .mini-card {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--decline-dark);
+            border: 1px solid rgba(239, 68, 68, 0.2);
             border-radius: 12px;
             padding: 12px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: transform 0.2s ease, border-color 0.2s;
+        }
+
+        .mini-card:hover {
+            transform: translateX(4px);
+            border-color: rgba(239, 68, 68, 0.5);
         }
 
         .mini-card .label {
@@ -290,8 +321,8 @@
         <header>
             <h1>Powerrr666yyy Stats</h1>
             <div class="badges-wrapper">
-                <div class="prime-badge">⭐ Prime Időszak</div>
-                <div class="faceit-badge">🎯 Kizárólag Faceit Adatok</div>
+                <div class="prime-badge">⭐ Prime Era</div>
+                <div class="faceit-badge">🎯 Faceit Data Only</div>
             </div>
         </header>
 
@@ -310,60 +341,60 @@
             </div>
         </div>
 
-        <!-- Kétoszlopos elrendezés -->
+        <!-- Two-column layout -->
         <div class="content-row">
-            <!-- Bal oldal: Prime kép -->
+            <!-- Left side: Prime image -->
             <div class="main-content">
-                <h2>Faceit Prime Statisztika</h2>
-                <p>A hivatalos mentés a korábbi prime meccseimből:</p>
+                <h2>Faceit Prime Statistics</h2>
+                <p>The official backup record from my past prime matches:</p>
                 <div class="screenshot-container">
-                    <img src="https://raw.githubusercontent.com/lokey3872-bit/Stats/main/statsss.png" alt="Faceit Prime Statisztikák">
+                    <img src="https://raw.githubusercontent.com/lokey3872-bit/Stats/main/statsss.png" alt="Faceit Prime Statistics">
                 </div>
             </div>
 
-            <!-- Jobb oldal: Jelenlegi statisztikák és eltérések -->
+            <!-- Right side: Current stats story-driven decline design -->
             <div class="side-content">
-                <h2>Jelenlegi Statisztikák</h2>
-                <p>A mostani adatok összehasonlítva a prime időszakkal:</p>
+                <h2>⚠️ Current Fall & Decline</h2>
+                <div class="story-subtitle">The brutal reality check compared to the golden era...</div>
                 
                 <div class="current-stats-grid">
                     <div class="mini-card">
-                        <div class="label">Jelenlegi K/D</div>
+                        <div class="label">Current K/D</div>
                         <div class="data-box">
                             <div class="current-val">1.05</div>
-                            <div class="diff worse">-26.6% romlás</div>
+                            <div class="diff worse">-26.6% Decline</div>
                         </div>
                     </div>
 
                     <div class="mini-card">
-                        <div class="label">Jelenlegi Winrate</div>
+                        <div class="label">Current Winrate</div>
                         <div class="data-box">
                             <div class="current-val">54%</div>
-                            <div class="diff worse">0% (Változatlan)</div>
+                            <div class="diff worse">0% (Stagnant)</div>
                         </div>
                     </div>
 
                     <div class="mini-card">
-                        <div class="label">Jelenlegi Elo</div>
+                        <div class="label">Current Elo</div>
                         <div class="data-box">
                             <div class="current-val">1543</div>
-                            <div class="diff better">+90 Elo (Jelenlegi)</div>
+                            <div class="diff better">+90 Elo (Current)</div>
                         </div>
                     </div>
 
                     <div class="mini-card">
-                        <div class="label">Jelenlegi Headshot %</div>
+                        <div class="label">Current Headshot %</div>
                         <div class="data-box">
                             <div class="current-val">56.4%</div>
-                            <div class="diff better">Friss adat</div>
+                            <div class="diff better">Fresh Data</div>
                         </div>
                     </div>
 
                     <div class="mini-card">
-                        <div class="label">Jelenlegi ADR</div>
+                        <div class="label">Current ADR</div>
                         <div class="data-box">
                             <div class="current-val">78.23</div>
-                            <div class="diff better">Friss adat</div>
+                            <div class="diff better">Fresh Data</div>
                         </div>
                     </div>
                 </div>
