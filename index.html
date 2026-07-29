@@ -235,14 +235,14 @@
         .current-stats-grid {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .mini-card {
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-            padding: 15px 20px;
+            padding: 12px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -250,7 +250,7 @@
 
         .mini-card .label {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -262,15 +262,15 @@
 
         .mini-card .current-val {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #fff;
         }
 
         .mini-card .diff {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin-top: 2px;
+            margin-top: 1px;
         }
 
         .diff.worse {
@@ -321,7 +321,7 @@
                 </div>
             </div>
 
-            <!-- Jobb oldal: Jelenlegi statisztikák és romlási %-ok -->
+            <!-- Jobb oldal: Jelenlegi statisztikák és eltérések -->
             <div class="side-content">
                 <h2>Jelenlegi Statisztikák</h2>
                 <p>A mostani adatok összehasonlítva a prime időszakkal:</p>
@@ -348,6 +348,22 @@
                         <div class="data-box">
                             <div class="current-val">1543</div>
                             <div class="diff better">+90 Elo (Jelenlegi)</div>
+                        </div>
+                    </div>
+
+                    <div class="mini-card">
+                        <div class="label">Jelenlegi Headshot %</div>
+                        <div class="data-box">
+                            <div class="current-val">56.4%</div>
+                            <div class="diff better">Friss adat</div>
+                        </div>
+                    </div>
+
+                    <div class="mini-card">
+                        <div class="label">Jelenlegi ADR</div>
+                        <div class="data-box">
+                            <div class="current-val">78.23</div>
+                            <div class="diff better">Friss adat</div>
                         </div>
                     </div>
                 </div>
