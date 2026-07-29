@@ -57,6 +57,39 @@
         header {
             text-align: center;
             margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Profilkép design pulzáló lila kerettel */
+        .profile-avatar-container {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #a855f7;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6), inset 0 0 15px rgba(168, 85, 247, 0.3);
+            animation: avatarPulse 2.5s infinite alternate;
+        }
+
+        @keyframes avatarPulse {
+            0% {
+                box-shadow: 0 0 15px rgba(168, 85, 247, 0.4), inset 0 0 10px rgba(168, 85, 247, 0.2);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(168, 85, 247, 0.8), inset 0 0 20px rgba(168, 85, 247, 0.4);
+                transform: scale(1.04);
+            }
+        }
+
+        .profile-avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         header h1 {
@@ -67,7 +100,7 @@
             letter-spacing: 3px;
             color: #fff;
             text-shadow: 0 0 20px rgba(168, 85, 247, 0.5), 0 0 40px rgba(168, 85, 247, 0.2);
-            margin-bottom: 15px;
+            margin-bottom: 5px;
         }
 
         .badges-wrapper {
@@ -279,7 +312,6 @@
             border-color: rgba(239, 68, 68, 0.5);
         }
 
-        /* Speciális zöld kártya a pozitív Elo-hoz */
         .mini-card.success-card {
             background: var(--success-dark);
             border: 1px solid rgba(16, 185, 129, 0.3);
@@ -329,10 +361,16 @@
 
     <div class="container">
         <header>
-            <h1>Powerrr666yyy Stats</h1>
-            <div class="badges-wrapper">
-                <div class="prime-badge">⭐ Prime Era</div>
-                <div class="faceit-badge">🎯 Faceit Data Only</div>
+            <!-- Beillesztett ikonikus profilkép -->
+            <div class="profile-avatar-container">
+                <img src="Powerrrpfp.jpg" alt="Powerrr666yyy Avatar">
+            </div>
+            <div>
+                <h1>Powerrr666yyy Stats</h1>
+                <div class="badges-wrapper" style="margin-top: 15px;">
+                    <div class="prime-badge">⭐ Prime Era</div>
+                    <div class="faceit-badge">🎯 Faceit Data Only</div>
+                </div>
             </div>
         </header>
 
@@ -384,7 +422,7 @@
                         </div>
                     </div>
 
-                    <!-- Zöld, kiemelt Elo kártya -->
+                    <!-- Zöld, kiemelt Elo kártya (+90 Elo) -->
                     <div class="mini-card success-card">
                         <div class="label">Current Elo</div>
                         <div class="data-box">
@@ -393,19 +431,21 @@
                         </div>
                     </div>
 
+                    <!-- Kiszámolt Headshot% romlás (87%-ról 56.4%-ra -> -35.2%) -->
                     <div class="mini-card">
                         <div class="label">Current Headshot %</div>
                         <div class="data-box">
                             <div class="current-val">56.4%</div>
-                            <div class="diff worse">+4.4% Higher? (Or drop/change)</div>
+                            <div class="diff worse">-35.2% Decline</div>
                         </div>
                     </div>
 
+                    <!-- Kiszámolt ADR romlás (kb. 109-ről 78.23-ra -> -28.2%) -->
                     <div class="mini-card">
                         <div class="label">Current ADR</div>
                         <div class="data-box">
                             <div class="current-val">78.23</div>
-                            <div class="diff worse">Evaluated Drop</div>
+                            <div class="diff worse">-28.2% Decline</div>
                         </div>
                     </div>
                 </div>
