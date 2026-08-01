@@ -185,14 +185,30 @@
             line-height: 1.6;
         }
 
-        .placeholder-box {
+        /* Stílusos, elegáns keret a statisztika képnek */
+        .stats-image-container {
             margin-top: 30px;
-            border: 2px dashed rgba(255, 255, 255, 0.1);
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
             border-radius: 16px;
-            padding: 60px 20px;
-            color: var(--text-muted);
-            font-style: italic;
-            background: rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.15);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .stats-image-container:hover {
+            transform: scale(1.01);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 35px rgba(251, 191, 36, 0.35);
+        }
+
+        .stats-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
     </style>
 </head>
@@ -221,10 +237,12 @@
 
         <div class="content-panel" id="main-panel">
             <h2 id="panel-title">Primary Statistics</h2>
-            <p id="panel-desc">Awaiting new configuration and upcoming performance data...</p>
+            <p id="panel-desc">Official performance overview and match metrics.</p>
             
-            <div class="placeholder-box" id="panel-content">
-                [ Ide jönnek majd az új statisztikák és a kép ]
+            <div id="panel-content">
+                <div class="stats-image-container">
+                    <img src="godstats.png" alt="- ɢᴏᴅ Primary Statistics">
+                </div>
             </div>
         </div>
     </div>
@@ -281,12 +299,20 @@
 
             if (tab === 'primary') {
                 title.textContent = "Primary Statistics";
-                desc.textContent = "Awaiting new configuration and upcoming performance data...";
-                content.innerHTML = "[ Ide jönnek majd az új statisztikák és a kép ]";
+                desc.textContent = "Official performance overview and match metrics.";
+                content.innerHTML = `
+                    <div class="stats-image-container">
+                        <img src="godstats.png" alt="- ɢᴏᴅ Primary Statistics">
+                    </div>
+                `;
             } else if (tab === 'advanced') {
                 title.textContent = "Advanced Data";
                 desc.textContent = "Deep analytical breakdown configuration zone...";
-                content.innerHTML = "[ Ide jönnek majd a részletesebb adatok ]";
+                content.innerHTML = `
+                    <div style="margin-top: 30px; border: 2px dashed rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 60px 20px; color: var(--text-muted); font-style: italic; background: rgba(0, 0, 0, 0.2);">
+                        [ Ide jönnek majd a részletesebb adatok ]
+                    </div>
+                `;
             }
         }
     </script>
