@@ -144,10 +144,11 @@
             96% { transform: translate(0); text-shadow: 0 0 25px rgba(251, 191, 36, 0.4); }
         }
 
+        /* Dobozmentes, teljesen sima, elegáns badge-ek */
         .badges-wrapper {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
@@ -155,17 +156,16 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(251, 191, 36, 0.08);
-            border: 1px solid rgba(251, 191, 36, 0.4);
+            background: transparent;
+            border: none;
             color: var(--accent-gold);
-            padding: 6px 16px;
-            border-radius: 20px;
+            padding: 0;
             font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 700;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            text-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
         }
 
         .tilt-card {
@@ -173,7 +173,7 @@
             transition: transform 0.1s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Új, dobozmentes, elegáns community szekció */
+        /* Dobozmentes, elegáns community szekció */
         .community-section {
             display: flex;
             align-items: center;
@@ -258,23 +258,25 @@
             text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
         }
 
+        /* Dobozmentes, lebegő, minimalista zenelejátszó */
         .transparent-player {
-            background: rgba(10, 10, 15, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(14px);
-            border-radius: 14px;
-            padding: 14px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+            border-top: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 0;
+            padding: 16px 10px;
             margin-bottom: 35px;
             display: flex;
             align-items: center;
             gap: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            box-shadow: none;
             transition: all 0.4s ease;
         }
 
         .transparent-player.playing {
-            border-color: rgba(251, 191, 36, 0.3);
-            box-shadow: 0 0 25px rgba(251, 191, 36, 0.15), inset 0 1px 0 rgba(251, 191, 36, 0.15);
+            border-color: rgba(251, 191, 36, 0.5);
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.05);
         }
 
         .eq-visualizer {
@@ -296,6 +298,7 @@
         .transparent-player.playing .eq-bar {
             background: var(--accent-gold);
             animation: eqDance 0.8s infinite alternate ease-in-out;
+            box-shadow: 0 0 8px var(--accent-gold);
         }
 
         .transparent-player.playing .eq-bar:nth-child(1) { animation-delay: 0.1s; }
@@ -317,7 +320,7 @@
 
         .progress-container {
             flex-grow: 1;
-            height: 4px;
+            height: 3px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 2px;
             cursor: crosshair;
@@ -361,6 +364,7 @@
         .control-icon-btn.main-play {
             color: var(--accent-gold);
             font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
         }
 
         .interactive-bar {
@@ -673,6 +677,7 @@
             </div>
             <div>
                 <h1>- ɢᴏᴅ</h1>
+                <!-- Dobozmentes, teljesen sima badge-ek -->
                 <div class="badges-wrapper" style="margin-top: 15px;">
                     <div class="badge">⚡ Divine Status</div>
                     <div class="badge">🏆 Elite Tier</div>
@@ -680,7 +685,7 @@
             </div>
         </header>
 
-        <!-- Új, letisztult, keret nélküli community rész -->
+        <!-- Dobozmentes, elegáns community rész -->
         <div class="community-section">
             <div class="community-info">
                 <div class="community-icon">🛡️</div>
@@ -699,7 +704,8 @@
             <span class="visitor-number" id="view-count">Loading...</span>
         </div>
 
-        <div class="transparent-player tilt-card" id="player-bar" data-tilt>
+        <!-- Dobozmentes, lebegő zenelejátszó -->
+        <div class="transparent-player" id="player-bar">
             <div class="eq-visualizer">
                 <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
