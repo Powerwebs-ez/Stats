@@ -32,7 +32,20 @@
             padding: 50px 20px;
         }
 
-        /* Egérkövető Fényeffekt (Spotlight) */
+        /* Basszus Rezonáló / Megremegő Effekt Klaszter */
+        body.bass-hit {
+            animation: subBassShake 0.4s ease;
+        }
+
+        @keyframes subBassShake {
+            0% { transform: translate(0, 0) scale(1); }
+            20% { transform: translate(-2px, 2px) scale(1.002); }
+            40% { transform: translate(2px, -1px) scale(1.003); }
+            60% { transform: translate(-1px, -2px) scale(1.002); }
+            80% { transform: translate(1px, 1px) scale(1.001); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
         #spotlight {
             position: fixed;
             top: 0;
@@ -130,7 +143,6 @@
             text-transform: uppercase;
         }
 
-        /* 3D Tilt kártya alapstílus */
         .tilt-card {
             transform-style: preserve-3d;
             transition: transform 0.1s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -196,7 +208,6 @@
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
         }
 
-        /* Áttetsző Zenelejátszó EQ Hanghullámokkal */
         .transparent-player {
             background: rgba(10, 10, 15, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -216,7 +227,6 @@
             box-shadow: 0 0 25px rgba(251, 191, 36, 0.15);
         }
 
-        /* Equalizer sávok */
         .eq-visualizer {
             display: flex;
             align-items: flex-end;
@@ -395,11 +405,9 @@
 </head>
 <body>
 
-    <!-- Egérkövető Fény -->
     <div id="spotlight"></div>
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Háttérzene Elem (Automatikus indítással) -->
     <audio id="bg-music" src="zene.mp3" loop autoplay></audio>
 
     <div class="container">
@@ -416,7 +424,6 @@
             </div>
         </header>
 
-        <!-- Unbreakable Community Kiemelt Doboz (3D Tilt-tel) -->
         <div class="community-card tilt-card" data-tilt>
             <div class="community-info">
                 <div class="community-icon">🛡️</div>
@@ -430,7 +437,6 @@
             </div>
         </div>
 
-        <!-- Áttetsző Zenelejátszó Sáv EQ Hanghullámokkal -->
         <div class="transparent-player tilt-card" id="player-bar" data-tilt>
             <div class="eq-visualizer">
                 <div class="eq-bar"></div>
@@ -468,7 +474,6 @@
     </div>
 
     <script>
-        // 1. Egérkövető Fény (Spotlight) logika
         document.addEventListener('mousemove', (e) => {
             const x = e.clientX;
             const y = e.clientY;
@@ -476,7 +481,6 @@
             document.documentElement.style.setProperty('--mouse-y', `${y}px`);
         });
 
-        // 2. Kártyák 3D Tilt (dőlő) effektus logikája
         const tiltCards = document.querySelectorAll('[data-tilt]');
         tiltCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -494,7 +498,6 @@
             });
         });
 
-        // Zenelejátszó logika
         const music = document.getElementById('bg-music');
         const playPauseBtn = document.getElementById('play-pause-btn');
         const progressBar = document.getElementById('progress-bar');
@@ -502,6 +505,8 @@
         const currentTimeEl = document.getElementById('current-time');
         const durationTimeEl = document.getElementById('duration-time');
         const playerBar = document.getElementById('player-bar');
+
+        let bassTriggered = false;
 
         window.addEventListener('DOMContentLoaded', () => {
             music.volume = 0.5;
@@ -539,8 +544,27 @@
                 progressBar.style.width = `${progressPercent}%`;
                 currentTimeEl.textContent = formatTime(music.currentTime);
                 durationTimeEl.textContent = formatTime(music.duration);
+
+                // 12. másodpercnél a basszus effekt lengetése
+                if (music.currentTime >= 12.0 && music.currentTime < 12.3 && !bassTriggered) {
+                    triggerBassEffect();
+                    bassTriggered = true;
+                }
+
+                // Ha visszatekerik a zenét 12 másodperc elé, engedje újra aktiválni
+                if (music.currentTime < 11.5) {
+                    bassTriggered = false;
+                }
             }
         });
+
+        // Basszus rezonáló effekt meghívása
+        function triggerBassEffect() {
+            document.body.classList.add('bass-hit');
+            setTimeout(() => {
+                document.body.classList.remove('bass-hit');
+            }, 400);
+        }
 
         function seekAudio(e) {
             const width = progressContainer.clientWidth;
@@ -561,7 +585,6 @@
             return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
-        // Háttér részecskék
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
