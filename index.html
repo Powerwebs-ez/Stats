@@ -412,7 +412,6 @@
             box-shadow: 0 0 20px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
-        /* Ripple Effect */
         .ripple {
             position: absolute;
             background: rgba(251, 191, 36, 0.5);
@@ -824,7 +823,6 @@
     </div>
 
     <script>
-        // Ripple effect handler for buttons
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('action-btn') || e.target.classList.contains('copy-btn')) {
                 const btn = e.target;
@@ -870,13 +868,13 @@
         });
 
         async function trackUniqueVisitor() {
-            const storageKey = 'godsite_total_visits';
-            const hasVisitedKey = 'godsite_session_counted';
-            let baseCount = 1420; 
+            const storageKey = 'godsite_total_visits_v2';
+            const hasVisitedKey = 'godsite_session_counted_v2';
+            let baseCount = 0; 
             
             try {
                 let currentTotal = localStorage.getItem(storageKey);
-                if (!currentTotal) {
+                if (currentTotal === null) {
                     currentTotal = baseCount;
                     localStorage.setItem(storageKey, currentTotal);
                 }
@@ -985,7 +983,7 @@
             return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
-        // Cyber-Grid & Mouse-Interactive Particles Background (2. pont)
+        // Mouse-Interactive Particles Background (Grid nélkül)
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -1008,40 +1006,13 @@
             });
         }
 
-        let gridOffsetY = 0;
-
         function animate() {
             ctx.clearRect(0, 0, width, height);
             
-            // Rajzoljuk ki a cyber-grid rácsozatot
-            ctx.strokeStyle = 'rgba(251, 191, 36, 0.035)';
-            ctx.lineWidth = 1;
-            
-            const gridSize = 60;
-            gridOffsetY = (gridOffsetY + 0.2) % gridSize;
-
-            // Függőleges vonalak
-            for (let x = 0; x < width; x += gridSize) {
-                ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, height);
-                ctx.stroke();
-            }
-
-            // Vízszintes vonalak (mozgó hatás)
-            for (let y = gridOffsetY; y < height; y += gridSize) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(width, y);
-                ctx.stroke();
-            }
-
-            // Részecskék mozgása egérkövető mágneses hatással
             particles.forEach(p => {
                 p.y -= p.speedY;
                 if (p.y < 0) p.y = height;
 
-                // Egér távolság vizsgálat a finom elmozduláshoz
                 let dx = mouseX - p.x;
                 let dy = mouseY - p.y;
                 let dist = Math.sqrt(dx * dx + dy * dy);
