@@ -168,6 +168,50 @@
             text-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
         }
 
+        /* Social Icons Row */
+        .social-links-bar {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--glass-bg);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .social-icon-btn img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icon-btn:hover {
+            border-color: var(--accent-gold);
+            background: rgba(251, 191, 36, 0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(251, 191, 36, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .social-icon-btn:hover img {
+            transform: scale(1.15);
+        }
+
         .tilt-card {
             transform-style: preserve-3d;
             transition: transform 0.1s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -669,6 +713,22 @@
                 </div>
             </div>
         </header>
+
+        <!-- Social Media Links Bar with the requested Logos and Links -->
+        <div class="social-links-bar">
+            <a href="https://steamcommunity.com/id/alwaysbetter2" target="_blank" class="social-icon-btn" title="Steam">
+                <img src="steam.jpg" alt="Steam">
+            </a>
+            <a href="https://www.faceit.com/en/players/240hzTalent" target="_blank" class="social-icon-btn" title="Faceit">
+                <img src="faceit.jpg" alt="Faceit">
+            </a>
+            <a href="https://discord.gg/ubec" target="_blank" class="social-icon-btn" title="Discord">
+                <img src="discord.jpg" alt="Discord">
+            </a>
+            <a href="https://ubec.hu/" target="_blank" class="social-icon-btn" title="UBEC">
+                <img src="ubec.jpg" alt="UBEC">
+            </a>
+        </div>
 
         <div class="community-section">
             <div class="community-info">
