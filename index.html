@@ -33,7 +33,6 @@
             transition: filter 0.1s ease;
         }
 
-        /* Anime Aurák / Magikus Erő Feszültség */
         body.bass-hit {
             animation: animeAuraBurst 0.8s cubic-bezier(.36,.07,.19,.97) both;
         }
@@ -224,7 +223,6 @@
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
         }
 
-        /* Látogató számláló komponens prémium dizájnja */
         .visitor-counter-card {
             background: rgba(10, 10, 15, 0.7);
             border: 1px solid rgba(251, 191, 36, 0.25);
@@ -240,10 +238,6 @@
             max-width: 320px;
             margin-left: auto;
             margin-right: auto;
-        }
-
-        .visitor-icon {
-            font-size: 1.1rem;
         }
 
         .visitor-text {
@@ -562,9 +556,8 @@
             </div>
         </div>
 
-        <!-- Egyedi Látogató Számláló Komponens -->
+        <!-- Egyedi Látogató Számláló Komponens (Emoji nélkül, valós alapú számlálással) -->
         <div class="visitor-counter-card tilt-card" data-tilt>
-            <span class="visitor-icon">👀</span>
             <span class="visitor-text">Unique Visitors:</span>
             <span class="visitor-number" id="view-count">Loading...</span>
         </div>
@@ -630,10 +623,10 @@
             });
         });
 
-        // Egyedi látogató számláló logika (1 böngésző / 1 látogatás)
+        // Egyedi látogató számláló logika (hibatűrő, valós számítással)
         async function trackUniqueVisitor() {
             const hasVisitedKey = 'godsite_has_visited';
-            const counterId = 'godsite-bit-unique-visits-v1';
+            const counterId = 'godsite-bit-unique-visits-v2';
             
             try {
                 let isNewVisitor = !localStorage.getItem(hasVisitedKey);
@@ -648,7 +641,12 @@
                     localStorage.setItem(hasVisitedKey, 'true');
                 }
             } catch (error) {
-                document.getElementById('view-count').textContent = "1,420";
+                let localViews = localStorage.getItem('godsite_local_count');
+                if (!localViews) {
+                    localViews = "1";
+                    localStorage.setItem('godsite_local_count', localViews);
+                }
+                document.getElementById('view-count').textContent = Number(localViews).toLocaleString();
             }
         }
         trackUniqueVisitor();
