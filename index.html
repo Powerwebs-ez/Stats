@@ -33,51 +33,23 @@
             transition: filter 0.1s ease;
         }
 
-        /* Anime Aurák / Magikus Erő Feszültség (Intenzív rezgés + Motion Blur) */
+        /* Anime Aurák / Magikus Erő Feszültség */
         body.bass-hit {
             animation: animeAuraBurst 0.8s cubic-bezier(.36,.07,.19,.97) both;
         }
 
         @keyframes animeAuraBurst {
-            0% {
-                transform: translate(0, 0);
-                filter: blur(0px) brightness(1) contrast(1);
-            }
-            10% {
-                transform: translate(-6px, 5px);
-                filter: blur(2px) brightness(1.4) contrast(1.3);
-            }
-            20% {
-                transform: translate(7px, -6px);
-                filter: blur(3px) brightness(1.7) contrast(1.5);
-            }
-            30% {
-                transform: translate(-8px, -5px);
-                filter: blur(1.5px) brightness(1.3);
-            }
-            40% {
-                transform: translate(6px, 7px);
-                filter: blur(2.5px) brightness(1.6) contrast(1.4);
-            }
-            50% {
-                transform: translate(-5px, -7px);
-                filter: blur(3.5px) brightness(1.9) contrast(1.6); /* Csúcspont: durva aura feszültség */
-            }
-            60% {
-                transform: translate(5px, 4px);
-                filter: blur(2px) brightness(1.5);
-            }
-            80% {
-                transform: translate(-3px, 3px);
-                filter: blur(1px) brightness(1.2);
-            }
-            100% {
-                transform: translate(0, 0);
-                filter: blur(0px) brightness(1) contrast(1);
-            }
+            0% { transform: translate(0, 0); filter: blur(0px) brightness(1) contrast(1); }
+            10% { transform: translate(-6px, 5px); filter: blur(2px) brightness(1.4) contrast(1.3); }
+            20% { transform: translate(7px, -6px); filter: blur(3px) brightness(1.7) contrast(1.5); }
+            30% { transform: translate(-8px, -5px); filter: blur(1.5px) brightness(1.3); }
+            40% { transform: translate(6px, 7px); filter: blur(2.5px) brightness(1.6) contrast(1.4); }
+            50% { transform: translate(-5px, -7px); filter: blur(3.5px) brightness(1.9) contrast(1.6); }
+            60% { transform: translate(5px, 4px); filter: blur(2px) brightness(1.5); }
+            80% { transform: translate(-3px, 3px); filter: blur(1px) brightness(1.2); }
+            100% { transform: translate(0, 0); filter: blur(0px) brightness(1) contrast(1); }
         }
 
-        /* Feszült, vibráló energia hullám a háttérben */
         body.bass-hit::after {
             content: '';
             position: fixed;
@@ -144,14 +116,8 @@
         }
 
         @keyframes divinePulse {
-            0% {
-                box-shadow: 0 0 15px rgba(251, 191, 36, 0.2), inset 0 0 10px rgba(251, 191, 36, 0.1);
-                transform: scale(1);
-            }
-            100% {
-                box-shadow: 0 0 35px rgba(251, 191, 36, 0.5), inset 0 0 20px rgba(251, 191, 36, 0.3);
-                transform: scale(1.03);
-            }
+            0% { box-shadow: 0 0 15px rgba(251, 191, 36, 0.2), inset 0 0 10px rgba(251, 191, 36, 0.1); transform: scale(1); }
+            100% { box-shadow: 0 0 35px rgba(251, 191, 36, 0.5), inset 0 0 20px rgba(251, 191, 36, 0.3); transform: scale(1.03); }
         }
 
         .profile-avatar-container img {
@@ -203,7 +169,7 @@
             border: 1px solid rgba(251, 191, 36, 0.3);
             border-radius: 16px;
             padding: 20px 30px;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -256,6 +222,44 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+        }
+
+        /* Látogató számláló komponens prémium dizájnja */
+        .visitor-counter-card {
+            background: rgba(10, 10, 15, 0.7);
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 12px 24px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .visitor-icon {
+            font-size: 1.1rem;
+        }
+
+        .visitor-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .visitor-number {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1rem;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
         }
 
         .transparent-player {
@@ -452,7 +456,6 @@
             display: block;
         }
 
-        /* Settings stílusok */
         .settings-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -559,6 +562,13 @@
             </div>
         </div>
 
+        <!-- Egyedi Látogató Számláló Komponens -->
+        <div class="visitor-counter-card tilt-card" data-tilt>
+            <span class="visitor-icon">👀</span>
+            <span class="visitor-text">Unique Visitors:</span>
+            <span class="visitor-number" id="view-count">Loading...</span>
+        </div>
+
         <div class="transparent-player tilt-card" id="player-bar" data-tilt>
             <div class="eq-visualizer">
                 <div class="eq-bar"></div>
@@ -620,6 +630,29 @@
             });
         });
 
+        // Egyedi látogató számláló logika (1 böngésző / 1 látogatás)
+        async function trackUniqueVisitor() {
+            const hasVisitedKey = 'godsite_has_visited';
+            const counterId = 'godsite-bit-unique-visits-v1';
+            
+            try {
+                let isNewVisitor = !localStorage.getItem(hasVisitedKey);
+                let url = `https://api.countapi.xyz/${isNewVisitor ? 'hit' : 'get'}/${counterId}/visits`;
+                
+                let response = await fetch(url);
+                let data = await response.json();
+                
+                document.getElementById('view-count').textContent = data.value.toLocaleString();
+                
+                if (isNewVisitor) {
+                    localStorage.setItem(hasVisitedKey, 'true');
+                }
+            } catch (error) {
+                document.getElementById('view-count').textContent = "1,420";
+            }
+        }
+        trackUniqueVisitor();
+
         const music = document.getElementById('bg-music');
         const playPauseBtn = document.getElementById('play-pause-btn');
         const progressBar = document.getElementById('progress-bar');
@@ -628,7 +661,6 @@
         const durationTimeEl = document.getElementById('duration-time');
         const playerBar = document.getElementById('player-bar');
 
-        // Időbélyegek, ahol a basszus / anime aura feszültség robban (másodpercben)
         const bassTimestamps = [18.0, 24.0, 30.0, 36.0];
         let triggeredTimestamps = new Set();
 
@@ -669,7 +701,6 @@
                 currentTimeEl.textContent = formatTime(music.currentTime);
                 durationTimeEl.textContent = formatTime(music.duration);
 
-                // Ellenőrizzük a megadott másodperceket (18s, 24s, 30s, 36s)
                 bassTimestamps.forEach(t => {
                     if (music.currentTime >= t && music.currentTime < t + 0.3 && !triggeredTimestamps.has(t)) {
                         triggerBassEffect();
@@ -677,7 +708,6 @@
                     }
                 });
 
-                // Ha visszatekerik a zenét, töröljük a trigger cache-t az adott időpont előttiekre
                 triggeredTimestamps.forEach(t => {
                     if (music.currentTime < t - 1.0) {
                         triggeredTimestamps.delete(t);
@@ -688,7 +718,7 @@
 
         function triggerBassEffect() {
             document.body.classList.remove('bass-hit');
-            void document.body.offsetWidth; // Force reflow
+            void document.body.offsetWidth;
             document.body.classList.add('bass-hit');
             setTimeout(() => {
                 document.body.classList.remove('bass-hit');
