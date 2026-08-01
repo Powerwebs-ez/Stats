@@ -426,7 +426,7 @@
             line-height: 1.6;
         }
 
-        /* --- ÚJ STATISZTIKAI DIZÁJN (A Kép alapján) --- */
+        /* --- STATISZTIKAI DIZÁJN --- */
         .stats-dashboard {
             display: flex;
             flex-direction: column;
@@ -524,6 +524,12 @@
             font-weight: 600;
             position: relative;
             padding-bottom: 4px;
+            cursor: crosshair;
+            transition: color 0.2s ease;
+        }
+
+        .faceit-tab:hover {
+            color: #fff;
         }
 
         .faceit-tab.active {
@@ -556,8 +562,7 @@
 
         .match-l { color: #f87171; }
         .match-w { color: #4ade80; }
-
-        /* --- VÉGE AZ ÚJ STATS DIZÁJNNAK --- */
+        /* --- VÉGE --- */
 
         .settings-grid {
             display: grid;
@@ -699,10 +704,8 @@
             <p id="panel-desc">Official performance overview and match metrics.</p>
             
             <div id="panel-content">
-                <!-- Behelyettesítve a képen látható adatok alapján készített egyedi, prémium dizájnos dashboard -->
-                <div class="stats-dashboard">
+                <div class="stats-dashboard" id="stats-dashboard-container">
                     <div class="stats-top-row">
-                        <!-- Steam / Profil adatok -->
                         <div class="stats-card-box">
                             <div class="stats-card-header">
                                 <span>STEAM</span> &bull; - ɢᴏᴅ
@@ -735,7 +738,6 @@
                             </div>
                         </div>
 
-                        <!-- Teljesítmény / Metrikák (Leetify adatok vizuálisan átdolgozva) -->
                         <div class="stats-card-box">
                             <div class="stats-card-header">
                                 <span>GOD</span> &bull; Performance Metrics
@@ -759,53 +761,27 @@
                         </div>
                     </div>
 
-                    <!-- Faceit / 240hzTalent Alsó Szekció -->
-                    <div class="stats-bottom-row">
+                    <div class="stats-bottom-row" id="faceit-section-container">
                         <div class="stats-card-header" style="justify-content: space-between; border-bottom: none; margin-bottom: 10px; padding-bottom: 0;">
                             <span>FACEIT &bull; 240hzTalent</span>
                             <span style="font-size: 0.85rem; color: var(--text-muted);">🇭🇺 / hu</span>
                         </div>
                         <div class="faceit-tabs">
-                            <span class="faceit-tab">CSGO</span>
-                            <span class="faceit-tab active">CS2</span>
+                            <span class="faceit-tab" onclick="switchFaceitTab('csgo')">CSGO</span>
+                            <span class="faceit-tab active" onclick="switchFaceitTab('cs2')">CS2</span>
                         </div>
-                        <div class="faceit-stats-grid">
-                            <div class="stat-item-box">
-                                <span class="stat-label">ELO</span>
-                                <span class="stat-val gold">1467 🌐</span>
-                            </div>
-                            <div class="stat-item-box">
-                                <span class="stat-label">PEAK ELO</span>
-                                <span class="stat-val gold">1521 🌐</span>
-                            </div>
-                            <div class="stat-item-box">
-                                <span class="stat-label">WINRATE</span>
-                                <span class="stat-val">51.30%</span>
-                            </div>
-                            <div class="stat-item-box">
-                                <span class="stat-label">MATCHES</span>
-                                <span class="stat-val">193</span>
-                            </div>
-                            <div class="stat-item-box">
-                                <span class="stat-label">HS%</span>
-                                <span class="stat-val">46%</span>
-                            </div>
-                            <div class="stat-item-box">
-                                <span class="stat-label">KD</span>
-                                <span class="stat-val">1.21</span>
-                            </div>
-                            <div class="stat-item-box">
-                                <span class="stat-label">ADR</span>
-                                <span class="stat-val">97.5</span>
-                            </div>
+                        <div class="faceit-stats-grid" id="faceit-stats-grid">
+                            <div class="stat-item-box"><span class="stat-label">ELO</span><span class="stat-val gold">1467 🌐</span></div>
+                            <div class="stat-item-box"><span class="stat-label">PEAK ELO</span><span class="stat-val gold">1521 🌐</span></div>
+                            <div class="stat-item-box"><span class="stat-label">WINRATE</span><span class="stat-val">51.30%</span></div>
+                            <div class="stat-item-box"><span class="stat-label">MATCHES</span><span class="stat-val">193</span></div>
+                            <div class="stat-item-box"><span class="stat-label">HS%</span><span class="stat-val">46%</span></div>
+                            <div class="stat-item-box"><span class="stat-label">KD</span><span class="stat-val">1.21</span></div>
+                            <div class="stat-item-box"><span class="stat-label">ADR</span><span class="stat-val">97.5</span></div>
                             <div class="stat-item-box">
                                 <span class="stat-label">RECENT</span>
                                 <div class="recent-matches">
-                                    <span class="match-l">L</span>
-                                    <span class="match-w">W</span>
-                                    <span class="match-w">W</span>
-                                    <span class="match-l">L</span>
-                                    <span class="match-l">L</span>
+                                    <span class="match-l">L</span><span class="match-w">W</span><span class="match-w">W</span><span class="match-l">L</span><span class="match-l">L</span>
                                 </div>
                             </div>
                         </div>
@@ -998,6 +974,42 @@
 
         animate();
 
+        function switchFaceitTab(game) {
+            const tabs = document.querySelectorAll('.faceit-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            const grid = document.getElementById('faceit-stats-grid');
+
+            if (game === 'csgo') {
+                tabs[0].classList.add('active');
+                grid.innerHTML = `
+                    <div class="stat-item-box"><span class="stat-label">ELO</span><span class="stat-val gold">1004 🟢³</span></div>
+                    <div class="stat-item-box"><span class="stat-label">WINRATE</span><span class="stat-val">52.94%</span></div>
+                    <div class="stat-item-box"><span class="stat-label">HS%</span><span class="stat-val">35%</span></div>
+                    <div class="stat-item-box"><span class="stat-label">PEAK ELO</span><span class="stat-val gold">1034 🟢³</span></div>
+                    <div class="stat-item-box"><span class="stat-label">MATCHES</span><span class="stat-val">17</span></div>
+                    <div class="stat-item-box"><span class="stat-label">KD</span><span class="stat-val">0.85</span></div>
+                `;
+            } else {
+                tabs[1].classList.add('active');
+                grid.innerHTML = `
+                    <div class="stat-item-box"><span class="stat-label">ELO</span><span class="stat-val gold">1467 🌐</span></div>
+                    <div class="stat-item-box"><span class="stat-label">PEAK ELO</span><span class="stat-val gold">1521 🌐</span></div>
+                    <div class="stat-item-box"><span class="stat-label">WINRATE</span><span class="stat-val">51.30%</span></div>
+                    <div class="stat-item-box"><span class="stat-label">MATCHES</span><span class="stat-val">193</span></div>
+                    <div class="stat-item-box"><span class="stat-label">HS%</span><span class="stat-val">46%</span></div>
+                    <div class="stat-item-box"><span class="stat-label">KD</span><span class="stat-val">1.21</span></div>
+                    <div class="stat-item-box"><span class="stat-label">ADR</span><span class="stat-val">97.5</span></div>
+                    <div class="stat-item-box">
+                        <span class="stat-label">RECENT</span>
+                        <div class="recent-matches">
+                            <span class="match-l">L</span><span class="match-w">W</span><span class="match-w">W</span><span class="match-l">L</span><span class="match-l">L</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
         function switchTab(tab) {
             const buttons = document.querySelectorAll('.action-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
@@ -1072,10 +1084,10 @@
                                 <span style="font-size: 0.85rem; color: var(--text-muted);">🇭🇺 / hu</span>
                             </div>
                             <div class="faceit-tabs">
-                                <span class="faceit-tab">CSGO</span>
-                                <span class="faceit-tab active">CS2</span>
+                                <span class="faceit-tab" onclick="switchFaceitTab('csgo')">CSGO</span>
+                                <span class="faceit-tab active" onclick="switchFaceitTab('cs2')">CS2</span>
                             </div>
-                            <div class="faceit-stats-grid">
+                            <div class="faceit-stats-grid" id="faceit-stats-grid">
                                 <div class="stat-item-box"><span class="stat-label">ELO</span><span class="stat-val gold">1467 🌐</span></div>
                                 <div class="stat-item-box"><span class="stat-label">PEAK ELO</span><span class="stat-val gold">1521 🌐</span></div>
                                 <div class="stat-item-box"><span class="stat-label">WINRATE</span><span class="stat-val">51.30%</span></div>
