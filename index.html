@@ -13,8 +13,6 @@
             --text-muted: #94a3b8;
             --accent-gold: #fbbf24;
             --accent-glow: rgba(251, 191, 36, 0.25);
-            --danger-red: #f43f5e;
-            --success-green: #10b981;
         }
 
         * {
@@ -180,121 +178,79 @@
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
         }
 
-        /* Továbbfejlesztett Zene Lejátszó Design & Effektusok */
-        .music-player-bar {
-            background: rgba(15, 15, 22, 0.9);
-            border: 1px solid rgba(251, 191, 36, 0.2);
-            border-radius: 16px;
-            padding: 18px 25px;
+        /* Áttetsző Minimalista Zenelejátszó (A képed alapján) */
+        .transparent-player {
+            background: rgba(10, 10, 15, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            padding: 14px 24px;
             margin-bottom: 35px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             gap: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            flex-wrap: wrap;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             transition: all 0.4s ease;
         }
 
-        /* Minimális pulzáló fényeffekt zenelejátszás közben */
-        .music-player-bar.playing {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.25);
-            animation: musicGlow 2s infinite alternate;
+        .transparent-player.playing {
+            border-color: rgba(251, 191, 36, 0.3);
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.15);
         }
 
-        @keyframes musicGlow {
-            0% {
-                box-shadow: 0 0 15px rgba(251, 191, 36, 0.15);
-            }
-            100% {
-                box-shadow: 0 0 35px rgba(251, 191, 36, 0.35);
-            }
+        .time-display {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+            min-width: 40px;
         }
 
-        .music-info {
+        .progress-container {
+            flex-grow: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-gold);
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        .player-controls {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .music-icon {
-            width: 45px;
-            height: 45px;
-            background: rgba(251, 191, 36, 0.1);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            border-radius: 12px;
+        .control-icon-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            padding: 4px;
+        }
+
+        .control-icon-btn:hover {
             color: var(--accent-gold);
-            position: relative;
+            transform: scale(1.1);
         }
 
-        /* Hanghullám animáció ikon mögött, ha megy a zene */
-        .music-player-bar.playing .music-icon::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 12px;
-            border: 1px solid var(--accent-gold);
-            animation: waveEffect 1.5s infinite;
-            opacity: 0;
-        }
-
-        @keyframes waveEffect {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(1.35);
-                opacity: 0;
-            }
-        }
-
-        .music-details h4 {
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            color: #fff;
-            letter-spacing: 1px;
-            margin-bottom: 2px;
-        }
-
-        .music-details p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .music-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .music-btn {
-            background: var(--accent-gold);
-            color: #030305;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 12px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-
-        .music-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(251, 191, 36, 0.5);
-            background: #fff;
+        .control-icon-btn.main-play {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
         }
 
         .interactive-bar {
@@ -392,10 +348,8 @@
 
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Háttérzene Audio Elem -->
-    <audio id="bg-music" loop>
-        <source src="zene.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Háttérzene Elem (Automatikus indítással) -->
+    <audio id="bg-music" src="zene.mp3" loop autoplay></audio>
 
     <div class="container">
         <header>
@@ -425,17 +379,17 @@
             </div>
         </div>
 
-        <!-- Újratervezett Zene Lejátszó Sáv -->
-        <div class="music-player-bar" id="music-bar">
-            <div class="music-info">
-                <div class="music-icon">🎵</div>
-                <div class="music-details">
-                    <h4>Vibe Theme</h4>
-                    <p id="music-status">Lejátszás szüneteltetve</p>
-                </div>
+        <!-- Áttetsző Minimalista Zenelejátszó Sáv -->
+        <div class="transparent-player" id="player-bar">
+            <div class="time-display" id="current-time">0:00</div>
+            <div class="progress-container" id="progress-container" onclick="seekAudio(event)">
+                <div class="progress-bar" id="progress-bar"></div>
             </div>
-            <div class="music-controls">
-                <button class="music-btn" id="play-btn" onclick="toggleMusic()">▶ Lejátszás</button>
+            <div class="time-display" id="duration-time">0:00</div>
+            <div class="player-controls">
+                <button class="control-icon-btn" onclick="skipTime(-10)" title="10mp Vissza">⏮</button>
+                <button class="control-icon-btn main-play" id="play-pause-btn" onclick="togglePlay()" title="Lejátszás / Szünet">⏸</button>
+                <button class="control-icon-btn" onclick="skipTime(10)" title="10mp Előre">⏭</button>
             </div>
         </div>
 
@@ -458,28 +412,71 @@
 
     <script>
         const music = document.getElementById('bg-music');
-        const playBtn = document.getElementById('play-btn');
-        const musicStatus = document.getElementById('music-status');
-        const musicBar = document.getElementById('music-bar');
-        let isPlaying = false;
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressContainer = document.getElementById('progress-container');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationTimeEl = document.getElementById('duration-time');
+        const playerBar = document.getElementById('player-bar');
 
-        function toggleMusic() {
-            if (isPlaying) {
-                music.pause();
-                playBtn.textContent = "▶ Lejátszás";
-                musicStatus.textContent = "Lejátszás szüneteltetve";
-                musicBar.classList.remove('playing');
-                isPlaying = false;
+        // Automatikus indítás megkísérlése betöltéskor
+        window.addEventListener('DOMContentLoaded', () => {
+            music.volume = 0.5;
+            music.play().then(() => {
+                playerBar.classList.add('playing');
+                playPauseBtn.textContent = "⏸";
+            }).catch(error => {
+                // Ha a böngésző blokkolná az autostartot hanggal, első kattintásra elindul
+                playPauseBtn.textContent = "▶";
+                playerBar.classList.remove('playing');
+                document.body.addEventListener('click', () => {
+                    if (music.paused) {
+                        music.play();
+                        playerBar.classList.add('playing');
+                        playPauseBtn.textContent = "⏸";
+                    }
+                }, { once: true });
+            });
+        });
+
+        function togglePlay() {
+            if (music.paused) {
+                music.play();
+                playPauseBtn.textContent = "⏸";
+                playerBar.classList.add('playing');
             } else {
-                music.play().then(() => {
-                    playBtn.textContent = "⏸ Szünet";
-                    musicStatus.textContent = "Zene szól...";
-                    musicBar.classList.add('playing');
-                    isPlaying = true;
-                }).catch(error => {
-                    alert("A zene.mp3 fájl nem található, vagy a böngésző blokkolta az autostartot!");
-                });
+                music.pause();
+                playPauseBtn.textContent = "▶";
+                playerBar.classList.remove('playing');
             }
+        }
+
+        music.addEventListener('timeupdate', () => {
+            if (!isNaN(music.duration)) {
+                const progressPercent = (music.currentTime / music.duration) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+                currentTimeEl.textContent = formatTime(music.currentTime);
+                durationTimeEl.textContent = formatTime(music.duration);
+            }
+        });
+
+        function seekAudio(e) {
+            const width = progressContainer.clientWidth;
+            const clickX = e.offsetX;
+            const duration = music.duration;
+            if (!isNaN(duration)) {
+                music.currentTime = (clickX / width) * duration;
+            }
+        }
+
+        function skipTime(seconds) {
+            music.currentTime = Math.min(Math.max(music.currentTime + seconds, 0), music.duration);
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
         const canvas = document.getElementById('bg-canvas');
