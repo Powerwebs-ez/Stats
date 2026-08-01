@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Powerrr666yyy Stats</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>- ɢᴏᴅ | Stats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050508;
-            --card-bg: rgba(20, 20, 35, 0.75);
-            --text-color: #f1f5f9;
+            --bg-color: #030305;
+            --card-bg: rgba(15, 15, 22, 0.8);
+            --text-color: #f8fafc;
             --text-muted: #94a3b8;
-            --accent-cyan: #06b6d4;
-            --prime-gold: #fbbf24;
-            --faceit-orange: #ff5500;
-            --danger-red: #ef4444;
+            --accent-gold: #fbbf24;
+            --accent-glow: rgba(251, 191, 36, 0.25);
+            --danger-red: #f43f5e;
             --success-green: #10b981;
-            --decline-dark: rgba(239, 68, 68, 0.12);
-            --success-dark: rgba(16, 185, 129, 0.12);
         }
 
         * {
@@ -30,14 +27,14 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            padding: 40px 20px;
+            padding: 50px 20px;
         }
 
-        #fire-canvas {
+        #bg-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -48,7 +45,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
@@ -56,7 +53,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -64,23 +61,23 @@
         }
 
         .profile-avatar-container {
-            width: 110px;
-            height: 110px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid #a855f7;
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6), inset 0 0 15px rgba(168, 85, 247, 0.3);
-            animation: avatarPulse 2.5s infinite alternate;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 0 30px var(--accent-glow);
+            animation: divinePulse 3s infinite alternate;
         }
 
-        @keyframes avatarPulse {
+        @keyframes divinePulse {
             0% {
-                box-shadow: 0 0 15px rgba(168, 85, 247, 0.4), inset 0 0 10px rgba(168, 85, 247, 0.2);
+                box-shadow: 0 0 15px rgba(251, 191, 36, 0.2), inset 0 0 10px rgba(251, 191, 36, 0.1);
                 transform: scale(1);
             }
             100% {
-                box-shadow: 0 0 30px rgba(168, 85, 247, 0.8), inset 0 0 20px rgba(168, 85, 247, 0.4);
-                transform: scale(1.04);
+                box-shadow: 0 0 35px rgba(251, 191, 36, 0.5), inset 0 0 20px rgba(251, 191, 36, 0.3);
+                transform: scale(1.03);
             }
         }
 
@@ -92,445 +89,153 @@
         }
 
         header h1 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            font-family: 'Cinzel', serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: 4px;
             color: #fff;
-            text-shadow: 0 0 20px rgba(168, 85, 247, 0.5), 0 0 40px rgba(168, 85, 247, 0.2);
-            margin-bottom: 5px;
+            text-shadow: 0 0 25px rgba(251, 191, 36, 0.4);
         }
 
         .badges-wrapper {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
-        .prime-badge {
+        .badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(251, 191, 36, 0.1);
-            border: 2px solid var(--prime-gold);
-            color: var(--prime-gold);
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1rem;
+            background: rgba(251, 191, 36, 0.08);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            color: var(--accent-gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            animation: pulseGlow 1.8s infinite alternate;
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
         }
 
-        .faceit-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 85, 0, 0.1);
-            border: 2px solid var(--faceit-orange);
-            color: var(--faceit-orange);
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(255, 85, 0, 0.3);
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 5px rgba(251, 191, 36, 0.2); }
-            100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.7); }
-        }
-
-        /* Interaktív Vezérlőpult és Látogatószámláló konténer */
-        .interactive-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
+        /* Vezérlő sáv */
         .interactive-bar {
             display: flex;
             justify-content: center;
             gap: 15px;
+            margin-bottom: 40px;
             flex-wrap: wrap;
         }
 
         .action-btn {
-            background: rgba(168, 85, 247, 0.15);
-            border: 1px solid #a855f7;
-            color: #fff;
-            padding: 10px 22px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 10px 24px;
             border-radius: 12px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
         }
 
         .action-btn:hover {
-            background: #a855f7;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+            border-color: var(--accent-gold);
+            color: #fff;
+            background: rgba(251, 191, 36, 0.05);
             transform: translateY(-2px);
         }
 
         .action-btn.active {
-            background: #a855f7;
-            border-color: #fff;
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.8);
-        }
-
-        /* Látogató számláló design stílus */
-        .visitor-counter {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(20, 20, 35, 0.9);
-            border: 1px solid rgba(168, 85, 247, 0.4);
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
-        }
-
-        .visitor-counter span {
-            color: #fff;
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: #030305;
             font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .card {
+        /* Fő tartalom doboz (Üresen hagyva az új adatoknak) */
+        .content-panel {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 25px;
-            transition: transform 0.3s ease, border-color 0.3s;
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transition: all 0.4s ease;
         }
 
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: #a855f7;
-            box-shadow: 0 15px 30px rgba(168, 85, 247, 0.25);
-        }
-
-        .card h3 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
+        .content-panel h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 15px;
             letter-spacing: 2px;
-            margin-bottom: 10px;
         }
 
-        .card .value {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .content-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            align-items: start;
-        }
-
-        @media (max-width: 900px) {
-            .content-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .main-content {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: all 0.4s ease;
-        }
-
-        .main-content h2 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
-            color: #a855f7;
-        }
-
-        .main-content p {
+        .content-panel p {
             color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 500px;
+            margin: 0 auto;
             line-height: 1.6;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
         }
 
-        .screenshot-container {
-            width: 100%;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 2px solid #a855f7;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
-            transition: transform 0.3s ease;
-        }
-
-        .screenshot-container:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
-        }
-
-        .screenshot-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .side-content {
-            background: linear-gradient(135deg, rgba(20, 20, 35, 0.85) 0%, rgba(40, 15, 20, 0.85) 100%);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.15);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .side-content::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 150px;
-            height: 150px;
-            background: rgba(239, 68, 68, 0.15);
-            filter: blur(40px);
-            pointer-events: none;
-        }
-
-        .side-content h2 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            border-bottom: 1px solid rgba(239, 68, 68, 0.2);
-            padding-bottom: 10px;
-            color: var(--danger-red);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .story-subtitle {
-            font-size: 0.85rem;
-            color: #fda4af;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        .current-stats-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .mini-card {
-            background: var(--decline-dark);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            border-radius: 12px;
-            padding: 12px 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: transform 0.2s ease, border-color 0.2s;
-        }
-
-        .mini-card:hover {
-            transform: translateX(4px);
-            border-color: rgba(239, 68, 68, 0.5);
-        }
-
-        .mini-card.success-card {
-            background: var(--success-dark);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .mini-card.success-card:hover {
-            border-color: rgba(16, 185, 129, 0.6);
-        }
-
-        .mini-card .label {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.95rem;
+        .placeholder-box {
+            margin-top: 30px;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 60px 20px;
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .mini-card .data-box {
-            text-align: right;
-        }
-
-        .mini-card .current-val {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .mini-card .diff {
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-top: 1px;
-        }
-
-        .diff.worse {
-            color: var(--danger-red);
-        }
-
-        .diff.better {
-            color: var(--success-green);
+            font-style: italic;
+            background: rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
 
-    <canvas id="fire-canvas"></canvas>
+    <canvas id="bg-canvas"></canvas>
 
     <div class="container">
         <header>
             <div class="profile-avatar-container">
-                <img src="Powerrrpfp.jpg" alt="Powerrr666yyy Avatar">
+                <img src="Powerrrpfp.jpg" alt="- ɢᴏᴅ Avatar">
             </div>
             <div>
-                <h1>Powerrr666yyy Stats</h1>
+                <h1>- ɢᴏᴅ</h1>
                 <div class="badges-wrapper" style="margin-top: 15px;">
-                    <div class="prime-badge">⭐ Prime Era</div>
-                    <div class="faceit-badge">🎯 Faceit Data Only</div>
+                    <div class="badge">⚡ Divine Status</div>
+                    <div class="badge">🏆 Elite Tier</div>
                 </div>
             </div>
         </header>
 
-        <!-- Interaktív Szekció: Gombok + Egyedi Látogatószámláló -->
-        <div class="interactive-section">
-            <div class="interactive-bar">
-                <button class="action-btn active" onclick="setMode('overview')">📊 Overview Mode</button>
-                <button class="action-btn" onclick="setMode('reality')">🔥 Reality Check Mode</button>
-            </div>
+        <!-- Interaktív Módok -->
+        <div class="interactive-bar">
+            <button class="action-btn active" onclick="switchTab('primary')">⚡ Primary Stats</button>
+            <button class="action-btn" onclick="switchTab('advanced')">🛡️ Advanced Data</button>
+        </div>
+
+        <!-- Dinamikus Tartalmi Panel -->
+        <div class="content-panel" id="main-panel">
+            <h2 id="panel-title">Primary Statistics</h2>
+            <p id="panel-desc">Awaiting new configuration and upcoming performance data...</p>
             
-            <div class="visitor-counter">
-                👁️ Total Unique Views: <span id="visitor-count">Loading...</span>
-            </div>
-        </div>
-
-        <div class="stats-grid">
-            <div class="card">
-                <h3>K/D Ratio</h3>
-                <div class="value">1.43</div>
-            </div>
-            <div class="card">
-                <h3>Winrate</h3>
-                <div class="value">54%</div>
-            </div>
-            <div class="card">
-                <h3>Faceit Elo</h3>
-                <div class="value">1545</div>
-            </div>
-        </div>
-
-        <!-- Two-column layout -->
-        <div class="content-row">
-            <!-- Left side -->
-            <div class="main-content" id="left-container">
-                <h2>Faceit Prime Statistics</h2>
-                <p id="left-text">The official backup record from my past prime matches:</p>
-                <div class="screenshot-container" id="left-media">
-                    <img src="https://raw.githubusercontent.com/lokey3872-bit/Stats/main/statsss.png" alt="Faceit Prime Statistics">
-                </div>
-            </div>
-
-            <!-- Right side -->
-            <div class="side-content" id="right-container">
-                <h2 id="right-title">⚠️ Current Fall & Decline</h2>
-                <div class="story-subtitle" id="right-subtitle">The brutal reality check compared to the golden era...</div>
-                
-                <div class="current-stats-grid" id="stats-grid-content">
-                    <div class="mini-card">
-                        <div class="label">Current K/D</div>
-                        <div class="data-box">
-                            <div class="current-val">1.05</div>
-                            <div class="diff worse">-26.6% Decline</div>
-                        </div>
-                    </div>
-
-                    <div class="mini-card">
-                        <div class="label">Current Winrate</div>
-                        <div class="data-box">
-                            <div class="current-val">54%</div>
-                            <div class="diff worse">0% (Stagnant)</div>
-                        </div>
-                    </div>
-
-                    <div class="mini-card success-card">
-                        <div class="label">Current Elo</div>
-                        <div class="data-box">
-                            <div class="current-val">1543</div>
-                            <div class="diff better">+90 Elo (Current)</div>
-                        </div>
-                    </div>
-
-                    <div class="mini-card">
-                        <div class="label">Current Headshot %</div>
-                        <div class="data-box">
-                            <div class="current-val">56.4%</div>
-                            <div class="diff worse">-35.2% Decline</div>
-                        </div>
-                    </div>
-
-                    <div class="mini-card">
-                        <div class="label">Current ADR</div>
-                        <div class="data-box">
-                            <div class="current-val">78.23</div>
-                            <div class="diff worse">-28.2% Decline</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="placeholder-box" id="panel-content">
+                [ Ide jönnek majd az új statisztikák és a kép ]
             </div>
         </div>
     </div>
 
     <script>
-        // Háttér tűz animáció
-        const canvas = document.getElementById('fire-canvas');
+        // Háttér finom részecske animáció
+        const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
         let width = canvas.width = window.innerWidth;
@@ -541,77 +246,28 @@
             height = canvas.height = window.innerHeight;
         });
 
-        const mouse = {
-            x: width / 2,
-            y: height / 2,
-            targetX: width / 2,
-            targetY: height / 2
-        };
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.targetX = e.clientX;
-            mouse.targetY = e.clientY;
-        });
-
         const particles = [];
-        const particleCount = 70;
-
-        class FireParticle {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = mouse.x + (Math.random() - 0.5) * 40;
-                this.y = mouse.y + (Math.random() - 0.5) * 40;
-                this.size = Math.random() * 35 + 10;
-                this.speedY = -Math.random() * 2.5 - 1;
-                this.speedX = (Math.random() - 0.5) * 1.5;
-                this.life = 1;
-                this.decay = Math.random() * 0.02 + 0.015;
-            }
-
-            update() {
-                this.x += this.speedX + (mouse.x - this.x) * 0.05;
-                this.y += this.speedY;
-                this.size *= 0.96;
-                this.life -= this.decay;
-
-                if (this.life <= 0 || this.size <= 1) {
-                    this.reset();
-                }
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalCompositeOperation = 'screen';
-                
-                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-                gradient.addColorStop(0, `rgba(236, 72, 153, ${this.life})`);
-                gradient.addColorStop(0.4, `rgba(168, 85, 247, ${this.life * 0.7})`);
-                gradient.addColorStop(1, `rgba(88, 28, 135, 0)`);
-
-                ctx.fillStyle = gradient;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new FireParticle());
+        for (let i = 0; i < 40; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 2 + 0.5,
+                speedY: Math.random() * 0.4 + 0.1,
+                alpha: Math.random() * 0.5 + 0.2
+            });
         }
 
         function animate() {
-            mouse.x += (mouse.targetX - mouse.x) * 0.1;
-            mouse.y += (mouse.targetY - mouse.y) * 0.1;
-
             ctx.clearRect(0, 0, width, height);
-
+            
             particles.forEach(p => {
-                p.update();
-                p.draw();
+                p.y -= p.speedY;
+                if (p.y < 0) p.y = height;
+
+                ctx.fillStyle = `rgba(251, 191, 36, ${p.alpha})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
             });
 
             requestAnimationFrame(animate);
@@ -619,124 +275,24 @@
 
         animate();
 
-        // Látogató számláló logika (IP/Gép alapú egyszeri számolás localStorage-dzsal)
-        async function initVisitorCounter() {
-            const counterElement = document.getElementById('visitor-count');
-            const namespace = 'powerrr666yyy-stats-page'; // Egyedi azonosító a statisztikádhoz
-            
-            try {
-                let url = `https://api.countapi.xyz/hit/${namespace}/visits`;
-                
-                // Ellenőrizzük, hogy ez a gép/böngésző járt-e már itt korábban
-                if (localStorage.getItem('page_viewed_powerrr')) {
-                    // Ha már látta, csak lekérjük az aktuális értéket növelés nélkül
-                    url = `https://api.countapi.xyz/get/${namespace}/visits`;
-                } else {
-                    // Ha új látogató, rögzítjük a localStorage-ban, hogy többször ne számolja
-                    localStorage.setItem('page_viewed_powerrr', 'true');
-                }
-
-                const response = await fetch(url);
-                const data = await response.json();
-                counterElement.textContent = data.value;
-            } catch (error) {
-                // Biztonsági fallback, ha az API átmenetileg nem elérhető
-                counterElement.textContent = '142';
-            }
-        }
-
-        initVisitorCounter();
-
-        // Valódi interaktív módváltó logika (Overview vs Reality Check)
-        function setMode(mode) {
+        // Fül váltó logika az új adatok fogadásához
+        function switchTab(tab) {
             const buttons = document.querySelectorAll('.action-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            const rightTitle = document.getElementById('right-title');
-            const rightSubtitle = document.getElementById('right-subtitle');
-            const statsGrid = document.getElementById('stats-grid-content');
+            const title = document.getElementById('panel-title');
+            const desc = document.getElementById('panel-desc');
+            const content = document.getElementById('panel-content');
 
-            if (mode === 'overview') {
-                rightTitle.innerHTML = "⚠️ Current Fall & Decline";
-                rightSubtitle.textContent = "The brutal reality check compared to the golden era...";
-                statsGrid.innerHTML = `
-                    <div class="mini-card">
-                        <div class="label">Current K/D</div>
-                        <div class="data-box">
-                            <div class="current-val">1.05</div>
-                            <div class="diff worse">-26.6% Decline</div>
-                        </div>
-                    </div>
-                    <div class="mini-card">
-                        <div class="label">Current Winrate</div>
-                        <div class="data-box">
-                            <div class="current-val">54%</div>
-                            <div class="diff worse">0% (Stagnant)</div>
-                        </div>
-                    </div>
-                    <div class="mini-card success-card">
-                        <div class="label">Current Elo</div>
-                        <div class="data-box">
-                            <div class="current-val">1543</div>
-                            <div class="diff better">+90 Elo (Current)</div>
-                        </div>
-                    </div>
-                    <div class="mini-card">
-                        <div class="label">Current Headshot %</div>
-                        <div class="data-box">
-                            <div class="current-val">56.4%</div>
-                            <div class="diff worse">-35.2% Decline</div>
-                        </div>
-                    </div>
-                    <div class="mini-card">
-                        <div class="label">Current ADR</div>
-                        <div class="data-box">
-                            <div class="current-val">78.23</div>
-                            <div class="diff worse">-28.2% Decline</div>
-                        </div>
-                    </div>
-                `;
-            } else if (mode === 'reality') {
-                rightTitle.innerHTML = "🚨 Emergency Roast Mode";
-                rightSubtitle.textContent = "Absolute disaster zone detected in recent matches!";
-                statsGrid.innerHTML = `
-                    <div class="mini-card">
-                        <div class="label">Clutch Success</div>
-                        <div class="data-box">
-                            <div class="current-val">2.5%</div>
-                            <div class="diff worse">Always 1v5</div>
-                        </div>
-                    </div>
-                    <div class="mini-card">
-                        <div class="label">Mental Stability</div>
-                        <div class="data-box">
-                            <div class="current-val">CRITICAL</div>
-                            <div class="diff worse">Ready to Ragequit</div>
-                        </div>
-                    </div>
-                    <div class="mini-card">
-                        <div class="label">Excuses Found</div>
-                        <div class="data-box">
-                            <div class="current-val">99+</div>
-                            <div class="diff worse">"Bad teammates"</div>
-                        </div>
-                    </div>
-                    <div class="mini-card">
-                        <div class="label">Aim Quality</div>
-                        <div class="data-box">
-                            <div class="current-val">Stormtrooper</div>
-                            <div class="diff worse">Missed everything</div>
-                        </div>
-                    </div>
-                    <div class="mini-card">
-                        <div class="label">Carried Status</div>
-                        <div class="data-box">
-                            <div class="current-val">100%</div>
-                            <div class="diff worse">Heavy backpack</div>
-                        </div>
-                    </div>
-                `;
+            if (tab === 'primary') {
+                title.textContent = "Primary Statistics";
+                desc.textContent = "Awaiting new configuration and upcoming performance data...";
+                content.innerHTML = "[ Ide jönnek majd az új statisztikák és a kép ]";
+            } else if (tab === 'advanced') {
+                title.textContent = "Advanced Data";
+                desc.textContent = "Deep analytical breakdown configuration zone...";
+                content.innerHTML = "[ Ide jönnek majd a részletesebb adatok ]";
             }
         }
     </script>
