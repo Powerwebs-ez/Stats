@@ -97,7 +97,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -173,64 +173,56 @@
             transition: transform 0.1s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .community-card {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.07) 0%, rgba(15, 15, 22, 0.9) 100%);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            border-radius: 16px;
-            padding: 20px 30px;
-            margin-bottom: 25px;
+        /* Új, dobozmentes, elegáns community szekció */
+        .community-section {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
+            margin-bottom: 25px;
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(251, 191, 36, 0.15);
+            border-top: 1px solid rgba(251, 191, 36, 0.15);
             flex-wrap: wrap;
             gap: 15px;
+            background: rgba(251, 191, 36, 0.02);
         }
 
         .community-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .community-icon {
-            font-size: 2rem;
-            background: rgba(251, 191, 36, 0.15);
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            border: 1px solid rgba(251, 191, 36, 0.4);
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            text-shadow: 0 0 10px var(--accent-glow);
         }
 
         .community-text h3 {
             font-family: 'Cinzel', serif;
             color: #fff;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             letter-spacing: 1px;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .community-text p {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .admin-badge-highlight {
-            background: rgba(251, 191, 36, 0.15);
-            border: 1px solid var(--accent-gold);
             color: var(--accent-gold);
-            padding: 8px 18px;
-            border-radius: 10px;
             font-family: 'Cinzel', serif;
             font-size: 0.8rem;
             font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .visitor-counter-card {
@@ -238,20 +230,20 @@
             border: 1px solid rgba(251, 191, 36, 0.25);
             backdrop-filter: blur(12px);
             border-radius: 12px;
-            padding: 12px 24px;
+            padding: 10px 20px;
             margin-bottom: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-            max-width: 320px;
+            max-width: 300px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .visitor-text {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -261,7 +253,7 @@
         .visitor-number {
             color: var(--accent-gold);
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-variant-numeric: tabular-nums;
             text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
         }
@@ -688,7 +680,8 @@
             </div>
         </header>
 
-        <div class="community-card tilt-card" data-tilt>
+        <!-- Új, letisztult, keret nélküli community rész -->
+        <div class="community-section">
             <div class="community-info">
                 <div class="community-icon">🛡️</div>
                 <div class="community-text">
@@ -868,8 +861,8 @@
         });
 
         async function trackUniqueVisitor() {
-            const storageKey = 'godsite_total_visits_v2';
-            const hasVisitedKey = 'godsite_session_counted_v2';
+            const storageKey = 'godsite_total_visits_v3';
+            const hasVisitedKey = 'godsite_session_counted_v3';
             let baseCount = 0; 
             
             try {
@@ -983,7 +976,6 @@
             return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
-        // Mouse-Interactive Particles Background (Grid nélkül)
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
