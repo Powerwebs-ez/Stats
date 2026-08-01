@@ -185,7 +185,6 @@
             line-height: 1.6;
         }
 
-        /* Stílusos, elegáns keret a statisztika képnek */
         .stats-image-container {
             margin-top: 30px;
             max-width: 750px;
@@ -232,7 +231,7 @@
 
         <div class="interactive-bar">
             <button class="action-btn active" onclick="switchTab('primary')">⚡ Primary Stats</button>
-            <button class="action-btn" onclick="switchTab('advanced')">🛡️ Advanced Data</button>
+            <button class="action-btn" onclick="switchTab('settings')">⚙️ Settings</button>
         </div>
 
         <div class="content-panel" id="main-panel">
@@ -305,12 +304,12 @@
                         <img src="godstats.png" alt="- ɢᴏᴅ Primary Statistics">
                     </div>
                 `;
-            } else if (tab === 'advanced') {
-                title.textContent = "Advanced Data";
-                desc.textContent = "Deep analytical breakdown configuration zone...";
+            } else if (tab === 'settings') {
+                title.textContent = "Player Settings";
+                desc.textContent = "Configuration details including sensitivity, resolution, and crosshair.";
                 content.innerHTML = `
                     <div style="margin-top: 30px; border: 2px dashed rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 60px 20px; color: var(--text-muted); font-style: italic; background: rgba(0, 0, 0, 0.2);">
-                        [ Ide jönnek majd a részletesebb adatok ]
+                        [ Ide jönnek majd a játékos settingsjei: érzékenység, felbontás, crosshair ]
                     </div>
                 `;
             }
