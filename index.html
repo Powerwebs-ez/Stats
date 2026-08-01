@@ -30,61 +30,69 @@
             overflow-x: hidden;
             position: relative;
             padding: 50px 20px;
-            perspective: 1200px; /* 3D tér alapja */
+            transition: filter 0.1s ease;
         }
 
-        /* 3D Monitor / Képernyő hullámzó effekt basszusnál */
-        body.bass-hit .container {
-            animation: screenWave3D 0.7s cubic-bezier(.36,.07,.19,.97) both;
+        /* Anime Aurák / Magikus Erő Feszültség (Intenzív rezgés + Motion Blur) */
+        body.bass-hit {
+            animation: animeAuraBurst 0.8s cubic-bezier(.36,.07,.19,.97) both;
         }
 
-        @keyframes screenWave3D {
+        @keyframes animeAuraBurst {
             0% {
-                transform: rotateX(0deg) rotateY(0deg) translateZ(0) scale(1);
-                filter: brightness(1) contrast(1);
+                transform: translate(0, 0);
+                filter: blur(0px) brightness(1) contrast(1);
+            }
+            10% {
+                transform: translate(-5px, 4px);
+                filter: blur(1.5px) brightness(1.3) contrast(1.2);
             }
             20% {
-                transform: rotateX(6deg) rotateY(-4deg) translateZ(50px) scale(1.02);
-                filter: brightness(1.6) contrast(1.3);
+                transform: translate(6px, -5px);
+                filter: blur(2.5px) brightness(1.6) contrast(1.4);
+            }
+            30% {
+                transform: translate(-7px, -4px);
+                filter: blur(1px) brightness(1.2);
             }
             40% {
-                transform: rotateX(-6deg) rotateY(4deg) translateZ(80px) scale(1.04);
-                filter: brightness(1.8) contrast(1.4);
+                transform: translate(5px, 6px);
+                filter: blur(2px) brightness(1.5) contrast(1.3);
+            }
+            50% {
+                transform: translate(-4px, -6px);
+                filter: blur(3px) brightness(1.8) contrast(1.5); /* Csúcspont: durva aura feszültség */
             }
             60% {
-                transform: rotateX(3deg) rotateY(-2deg) translateZ(40px) scale(1.02);
-                filter: brightness(1.3);
+                transform: translate(4px, 3px);
+                filter: blur(1.5px) brightness(1.4);
             }
             80% {
-                transform: rotateX(-1deg) rotateY(1deg) translateZ(15px) scale(1.005);
-                filter: brightness(1.1);
+                transform: translate(-2px, 2px);
+                filter: blur(0.8px) brightness(1.1);
             }
             100% {
-                transform: rotateX(0deg) rotateY(0deg) translateZ(0) scale(1);
-                filter: brightness(1) contrast(1);
+                transform: translate(0, 0);
+                filter: blur(0px) brightness(1) contrast(1);
             }
         }
 
-        /* Háttér 3D lökéshullám gyűrű */
+        /* Feszült, vibráló energia hullám a háttérben */
         body.bass-hit::after {
             content: '';
             position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 5vw;
-            height: 5vw;
-            transform: translate(-50%, -50%) translateZ(-100px);
-            border: 2px solid var(--accent-gold);
-            border-radius: 50%;
-            box-shadow: 0 0 80px var(--accent-gold), inset 0 0 50px var(--accent-gold);
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(251, 191, 36, 0.15) 0%, transparent 70%);
+            box-shadow: inset 0 0 100px rgba(251, 191, 36, 0.4);
             pointer-events: none;
             z-index: 999;
-            animation: 3dShockwave 0.7s cubic-bezier(0, .7, .2, 1) forwards;
+            animation: auraFlash 0.8s ease-out forwards;
         }
 
-        @keyframes 3dShockwave {
-            0% { width: 5vw; height: 5vw; opacity: 1; border-width: 4px; }
-            100% { width: 200vw; height: 200vw; opacity: 0; border-width: 1px; }
+        @keyframes auraFlash {
+            0% { opacity: 0; transform: scale(0.95); }
+            30% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 0; transform: scale(1.05); }
         }
 
         #spotlight {
@@ -114,8 +122,6 @@
             margin: 0 auto;
             position: relative;
             z-index: 2;
-            transform-style: preserve-3d; /* Biztosítja a 3D elemek helyes renderelését */
-            transition: transform 0.1s ease;
         }
 
         header {
@@ -676,7 +682,7 @@
             document.body.classList.add('bass-hit');
             setTimeout(() => {
                 document.body.classList.remove('bass-hit');
-            }, 700);
+            }, 800);
         }
 
         function seekAudio(e) {
