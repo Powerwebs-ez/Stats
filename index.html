@@ -19,7 +19,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: default;
+            cursor: crosshair !important;
         }
 
         body {
@@ -318,7 +318,7 @@
             height: 4px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 2px;
-            cursor: pointer;
+            cursor: crosshair;
             position: relative;
             overflow: hidden;
         }
@@ -343,7 +343,7 @@
             border: none;
             color: var(--text-muted);
             font-size: 1rem;
-            cursor: pointer;
+            cursor: crosshair;
             transition: color 0.2s, transform 0.2s;
             display: flex;
             align-items: center;
@@ -380,7 +380,7 @@
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
-            cursor: pointer;
+            cursor: crosshair;
             transition: all 0.3s ease;
         }
 
@@ -509,7 +509,7 @@
             font-size: 0.8rem;
             font-weight: 700;
             letter-spacing: 1px;
-            cursor: pointer;
+            cursor: crosshair;
             transition: all 0.2s ease;
             text-transform: uppercase;
             align-self: flex-start;
@@ -556,7 +556,6 @@
             </div>
         </div>
 
-        <!-- Egyedi Látogató Számláló Komponens (Emoji nélkül, valós alapú számlálással) -->
         <div class="visitor-counter-card tilt-card" data-tilt>
             <span class="visitor-text">Unique Visitors:</span>
             <span class="visitor-number" id="view-count">Loading...</span>
@@ -623,7 +622,6 @@
             });
         });
 
-        // Egyedi látogató számláló logika (hibatűrő, valós számítással)
         async function trackUniqueVisitor() {
             const hasVisitedKey = 'godsite_has_visited';
             const counterId = 'godsite-bit-unique-visits-v2';
