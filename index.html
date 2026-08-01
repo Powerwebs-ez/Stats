@@ -173,7 +173,6 @@
             transition: transform 0.1s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Teljesen háttérbe simuló közösségi sáv (Nincs doboz, nincs szegély, nincs háttér) */
         .community-section {
             background: transparent;
             border: none;
@@ -230,41 +229,6 @@
             border: none;
         }
 
-        .visitor-counter-card {
-            background: var(--glass-bg);
-            border: 1px solid rgba(251, 191, 36, 0.25);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 12px;
-            padding: 10px 20px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            max-width: 300px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .visitor-text {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Cinzel', serif;
-        }
-
-        .visitor-number {
-            color: var(--accent-gold);
-            font-weight: 700;
-            font-size: 0.95rem;
-            font-variant-numeric: tabular-nums;
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
-        }
-
-        /* Teljesen háttérbe simuló zenelejátszó (Nincs háttér, nincs szegély, nincs árnyékdoboz) */
         .transparent-player {
             background: transparent;
             border: none;
@@ -374,7 +338,6 @@
             flex-wrap: wrap;
         }
 
-        /* Üveghatású gombok */
         .action-btn {
             background: var(--glass-bg);
             border: 1px solid rgba(251, 191, 36, 0.2);
@@ -428,7 +391,6 @@
             }
         }
 
-        /* Fő üveghatású panel */
         .content-panel {
             background: var(--card-bg);
             backdrop-filter: blur(20px);
@@ -471,7 +433,6 @@
             gap: 20px;
         }
 
-        /* Üveghatású kártya dobozok */
         .stats-card-box {
             background: var(--glass-bg);
             border: 1px solid rgba(251, 191, 36, 0.22);
@@ -538,7 +499,6 @@
             gap: 16px;
         }
 
-        /* Üveghatású alsó sáv */
         .stats-bottom-row {
             background: var(--glass-bg);
             border: 1px solid rgba(251, 191, 36, 0.22);
@@ -723,11 +683,6 @@
             </div>
         </div>
 
-        <div class="visitor-counter-card tilt-card" data-tilt>
-            <span class="visitor-text">Unique Visitors:</span>
-            <span class="visitor-number" id="view-count">Loading...</span>
-        </div>
-
         <div class="transparent-player" id="player-bar">
             <div class="eq-visualizer">
                 <div class="eq-bar"></div>
@@ -888,31 +843,6 @@
                 card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
             });
         });
-
-        async function trackUniqueVisitor() {
-            const storageKey = 'godsite_total_visits_v3';
-            const hasVisitedKey = 'godsite_session_counted_v3';
-            let baseCount = 0; 
-            
-            try {
-                let currentTotal = localStorage.getItem(storageKey);
-                if (currentTotal === null) {
-                    currentTotal = baseCount;
-                    localStorage.setItem(storageKey, currentTotal);
-                }
-                
-                if (!sessionStorage.getItem(hasVisitedKey)) {
-                    currentTotal = Number(currentTotal) + 1;
-                    localStorage.setItem(storageKey, currentTotal);
-                    sessionStorage.setItem(hasVisitedKey, 'true');
-                }
-                
-                document.getElementById('view-count').textContent = Number(currentTotal).toLocaleString();
-            } catch (error) {
-                document.getElementById('view-count').textContent = baseCount.toLocaleString();
-            }
-        }
-        trackUniqueVisitor();
 
         const music = document.getElementById('bg-music');
         const playPauseBtn = document.getElementById('play-pause-btn');
