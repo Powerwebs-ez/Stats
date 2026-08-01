@@ -32,6 +32,18 @@
             padding: 50px 20px;
         }
 
+        /* Egérkövető Fényeffekt (Spotlight) */
+        #spotlight {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(251, 191, 36, 0.06), transparent 40%);
+            z-index: 1;
+        }
+
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -118,6 +130,12 @@
             text-transform: uppercase;
         }
 
+        /* 3D Tilt kártya alapstílus */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
         .community-card {
             background: linear-gradient(135deg, rgba(251, 191, 36, 0.07) 0%, rgba(15, 15, 22, 0.9) 100%);
             border: 1px solid rgba(251, 191, 36, 0.3);
@@ -178,7 +196,7 @@
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
         }
 
-        /* Áttetsző Minimalista Zenelejátszó (A képed alapján) */
+        /* Áttetsző Zenelejátszó EQ Hanghullámokkal */
         .transparent-player {
             background: rgba(10, 10, 15, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -196,6 +214,38 @@
         .transparent-player.playing {
             border-color: rgba(251, 191, 36, 0.3);
             box-shadow: 0 0 25px rgba(251, 191, 36, 0.15);
+        }
+
+        /* Equalizer sávok */
+        .eq-visualizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 16px;
+            width: 20px;
+        }
+
+        .eq-bar {
+            width: 3px;
+            background: var(--text-muted);
+            border-radius: 2px;
+            height: 4px;
+            transition: height 0.2s ease;
+        }
+
+        .transparent-player.playing .eq-bar {
+            background: var(--accent-gold);
+            animation: eqDance 0.8s infinite alternate ease-in-out;
+        }
+
+        .transparent-player.playing .eq-bar:nth-child(1) { animation-delay: 0.1s; }
+        .transparent-player.playing .eq-bar:nth-child(2) { animation-delay: 0.4s; }
+        .transparent-player.playing .eq-bar:nth-child(3) { animation-delay: 0.2s; }
+        .transparent-player.playing .eq-bar:nth-child(4) { animation-delay: 0.5s; }
+
+        @keyframes eqDance {
+            0% { height: 4px; }
+            100% { height: 16px; }
         }
 
         .time-display {
@@ -327,12 +377,11 @@
             overflow: hidden;
             border: 2px solid rgba(251, 191, 36, 0.3);
             box-shadow: 0 0 25px rgba(251, 191, 36, 0.15);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
             background: rgba(0, 0, 0, 0.4);
         }
 
         .stats-image-container:hover {
-            transform: scale(1.01);
             border-color: var(--accent-gold);
             box-shadow: 0 0 35px rgba(251, 191, 36, 0.35);
         }
@@ -346,6 +395,8 @@
 </head>
 <body>
 
+    <!-- Egérkövető Fény -->
+    <div id="spotlight"></div>
     <canvas id="bg-canvas"></canvas>
 
     <!-- Háttérzene Elem (Automatikus indítással) -->
@@ -365,8 +416,8 @@
             </div>
         </header>
 
-        <!-- Unbreakable Community Kiemelt Doboz -->
-        <div class="community-card">
+        <!-- Unbreakable Community Kiemelt Doboz (3D Tilt-tel) -->
+        <div class="community-card tilt-card" data-tilt>
             <div class="community-info">
                 <div class="community-icon">🛡️</div>
                 <div class="community-text">
@@ -379,8 +430,14 @@
             </div>
         </div>
 
-        <!-- Áttetsző Minimalista Zenelejátszó Sáv -->
-        <div class="transparent-player" id="player-bar">
+        <!-- Áttetsző Zenelejátszó Sáv EQ Hanghullámokkal -->
+        <div class="transparent-player tilt-card" id="player-bar" data-tilt>
+            <div class="eq-visualizer">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+            </div>
             <div class="time-display" id="current-time">0:00</div>
             <div class="progress-container" id="progress-container" onclick="seekAudio(event)">
                 <div class="progress-bar" id="progress-bar"></div>
@@ -398,7 +455,7 @@
             <button class="action-btn" onclick="switchTab('settings')">⚙️ Settings</button>
         </div>
 
-        <div class="content-panel" id="main-panel">
+        <div class="content-panel tilt-card" id="main-panel" data-tilt>
             <h2 id="panel-title">Primary Statistics</h2>
             <p id="panel-desc">Official performance overview and match metrics.</p>
             
@@ -411,6 +468,33 @@
     </div>
 
     <script>
+        // 1. Egérkövető Fény (Spotlight) logika
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            document.documentElement.style.setProperty('--mouse-x', `${x}px`);
+            document.documentElement.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        // 2. Kártyák 3D Tilt (dőlő) effektus logikája
+        const tiltCards = document.querySelectorAll('[data-tilt]');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 5;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            });
+        });
+
+        // Zenelejátszó logika
         const music = document.getElementById('bg-music');
         const playPauseBtn = document.getElementById('play-pause-btn');
         const progressBar = document.getElementById('progress-bar');
@@ -419,14 +503,12 @@
         const durationTimeEl = document.getElementById('duration-time');
         const playerBar = document.getElementById('player-bar');
 
-        // Automatikus indítás megkísérlése betöltéskor
         window.addEventListener('DOMContentLoaded', () => {
             music.volume = 0.5;
             music.play().then(() => {
                 playerBar.classList.add('playing');
                 playPauseBtn.textContent = "⏸";
             }).catch(error => {
-                // Ha a böngésző blokkolná az autostartot hanggal, első kattintásra elindul
                 playPauseBtn.textContent = "▶";
                 playerBar.classList.remove('playing');
                 document.body.addEventListener('click', () => {
@@ -479,6 +561,7 @@
             return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
+        // Háttér részecskék
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
