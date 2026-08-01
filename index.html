@@ -120,7 +120,6 @@
             text-transform: uppercase;
         }
 
-        /* Új Unbreakable Community Kártya Design */
         .community-card {
             background: linear-gradient(135deg, rgba(251, 191, 36, 0.07) 0%, rgba(15, 15, 22, 0.9) 100%);
             border: 1px solid rgba(251, 191, 36, 0.3);
@@ -179,6 +178,123 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+        }
+
+        /* Továbbfejlesztett Zene Lejátszó Design & Effektusok */
+        .music-player-bar {
+            background: rgba(15, 15, 22, 0.9);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 16px;
+            padding: 18px 25px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            flex-wrap: wrap;
+            transition: all 0.4s ease;
+        }
+
+        /* Minimális pulzáló fényeffekt zenelejátszás közben */
+        .music-player-bar.playing {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.25);
+            animation: musicGlow 2s infinite alternate;
+        }
+
+        @keyframes musicGlow {
+            0% {
+                box-shadow: 0 0 15px rgba(251, 191, 36, 0.15);
+            }
+            100% {
+                box-shadow: 0 0 35px rgba(251, 191, 36, 0.35);
+            }
+        }
+
+        .music-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .music-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            position: relative;
+        }
+
+        /* Hanghullám animáció ikon mögött, ha megy a zene */
+        .music-player-bar.playing .music-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--accent-gold);
+            animation: waveEffect 1.5s infinite;
+            opacity: 0;
+        }
+
+        @keyframes waveEffect {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.35);
+                opacity: 0;
+            }
+        }
+
+        .music-details h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: #fff;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .music-details p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .music-btn {
+            background: var(--accent-gold);
+            color: #030305;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.5);
+            background: #fff;
         }
 
         .interactive-bar {
@@ -276,6 +392,11 @@
 
     <canvas id="bg-canvas"></canvas>
 
+    <!-- Háttérzene Audio Elem -->
+    <audio id="bg-music" loop>
+        <source src="zene.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="container">
         <header>
             <div class="profile-avatar-container">
@@ -304,6 +425,20 @@
             </div>
         </div>
 
+        <!-- Újratervezett Zene Lejátszó Sáv -->
+        <div class="music-player-bar" id="music-bar">
+            <div class="music-info">
+                <div class="music-icon">🎵</div>
+                <div class="music-details">
+                    <h4>Vibe Theme</h4>
+                    <p id="music-status">Lejátszás szüneteltetve</p>
+                </div>
+            </div>
+            <div class="music-controls">
+                <button class="music-btn" id="play-btn" onclick="toggleMusic()">▶ Lejátszás</button>
+            </div>
+        </div>
+
         <div class="interactive-bar">
             <button class="action-btn active" onclick="switchTab('primary')">⚡ Primary Stats</button>
             <button class="action-btn" onclick="switchTab('settings')">⚙️ Settings</button>
@@ -322,6 +457,31 @@
     </div>
 
     <script>
+        const music = document.getElementById('bg-music');
+        const playBtn = document.getElementById('play-btn');
+        const musicStatus = document.getElementById('music-status');
+        const musicBar = document.getElementById('music-bar');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                playBtn.textContent = "▶ Lejátszás";
+                musicStatus.textContent = "Lejátszás szüneteltetve";
+                musicBar.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                music.play().then(() => {
+                    playBtn.textContent = "⏸ Szünet";
+                    musicStatus.textContent = "Zene szól...";
+                    musicBar.classList.add('playing');
+                    isPlaying = true;
+                }).catch(error => {
+                    alert("A zene.mp3 fájl nem található, vagy a böngésző blokkolta az autostartot!");
+                });
+            }
+        }
+
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
