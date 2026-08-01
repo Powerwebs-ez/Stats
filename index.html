@@ -120,7 +120,6 @@
             text-transform: uppercase;
         }
 
-        /* Vezérlő sáv */
         .interactive-bar {
             display: flex;
             justify-content: center;
@@ -159,7 +158,6 @@
             box-shadow: 0 0 20px var(--accent-glow);
         }
 
-        /* Fő tartalom doboz (Üresen hagyva az új adatoknak) */
         .content-panel {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -205,7 +203,7 @@
     <div class="container">
         <header>
             <div class="profile-avatar-container">
-                <img src="Powerrrpfp.jpg" alt="- ɢᴏᴅ Avatar">
+                <img src="9ace024fb018e76b5213645e1ba38c8bbfecce0c_full.jpg" alt="- ɢᴏᴅ Avatar">
             </div>
             <div>
                 <h1>- ɢᴏᴅ</h1>
@@ -216,13 +214,11 @@
             </div>
         </header>
 
-        <!-- Interaktív Módok -->
         <div class="interactive-bar">
             <button class="action-btn active" onclick="switchTab('primary')">⚡ Primary Stats</button>
             <button class="action-btn" onclick="switchTab('advanced')">🛡️ Advanced Data</button>
         </div>
 
-        <!-- Dinamikus Tartalmi Panel -->
         <div class="content-panel" id="main-panel">
             <h2 id="panel-title">Primary Statistics</h2>
             <p id="panel-desc">Awaiting new configuration and upcoming performance data...</p>
@@ -234,7 +230,6 @@
     </div>
 
     <script>
-        // Háttér finom részecske animáció
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -275,7 +270,6 @@
 
         animate();
 
-        // Fül váltó logika az új adatok fogadásához
         function switchTab(tab) {
             const buttons = document.querySelectorAll('.action-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
